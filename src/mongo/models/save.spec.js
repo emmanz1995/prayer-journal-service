@@ -7,6 +7,9 @@ const Model = jest.fn(() => ({
 }))
 
 describe('Testing save', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   test('should save an account to db', async () => {
     save.mockImplementationOnce(() => {
       return {
