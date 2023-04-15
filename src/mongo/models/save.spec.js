@@ -1,4 +1,4 @@
-import { saveAccount } from './save'
+import { saveJournal } from './save'
 import { jest } from '@jest/globals'
 
 const save = jest.fn()
@@ -13,24 +13,24 @@ describe('Testing save', () => {
   test('should save an account to db', async () => {
     save.mockImplementationOnce(() => {
       return {
-        owner: 'Bacon Cheese',
-        movements: [],
-        interestRate: 1.2,
-        pin: 1111,
+        title: 'Bacon Cheese',
+        description:
+          "I want a Bacon Cheese sandwich this weekend in Jesus' name.",
+        journalType: 'Prayer',
       }
     })
     const formData = {
-      owner: 'Bacon Cheese',
-      movements: [],
-      interestRate: 1.2,
-      pin: 1111,
+      title: 'Bacon Cheese',
+      description:
+        "I want a Bacon Cheese sandwich this weekend in Jesus' name.",
+      journalType: 'Prayer',
     }
-    const createAccount = await saveAccount(Model)(formData)
-    expect(createAccount).toEqual(formData)
+    const createJournalEntry = await saveJournal(Model)(formData)
+    expect(createJournalEntry).toEqual(formData)
   })
   test('saveAccount function is defined', async () => {
-    const createAccount = saveAccount(Model)
-    expect(createAccount).toBeDefined()
+    const createJournalEntry = saveJournal(Model)
+    expect(createJournalEntry).toBeDefined()
   })
   test('failed to save new account', async () => {})
 })

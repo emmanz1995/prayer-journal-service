@@ -1,12 +1,12 @@
-import { AddAccount, UpdateAccount } from '../mongo/account.model'
+import { AddJournal, UpdateJournal } from '../mongo/journal.model'
 
-const createAccount = async formData => {
+const createJournal = async formData => {
   try {
-    const newAccount = await AddAccount(formData)
-    return newAccount
+    const newJournalEntry = await AddJournal(formData)
+    return newJournalEntry
   } catch (err) {
     return err
   }
 }
 
-export const service = { createAccount }
+export const service = { createJournal }
