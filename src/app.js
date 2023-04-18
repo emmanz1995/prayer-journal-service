@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   res.send('<h1>Welcome to the banking tranfer app</h1>')
 })
 
-app.use('/api/accounts', accountRouter)
+app.use('/api/journal', accountRouter)
 
 app.use(ErrorHandler)
 

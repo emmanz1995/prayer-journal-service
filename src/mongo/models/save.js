@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import BadRequest from '../../errors/badRequest'
 
 const saveJournal = Model => async doc => {
   const newJournalEntry = new Model({
@@ -13,15 +14,25 @@ const saveJournal = Model => async doc => {
   }
 }
 
-const updateJournal = Model => async (doc, id) => {
-  // const name = _.get(doc, 'owner')
-  // try {
-  //   const account = Model.findByIdAndUpdate(id, { name }, { new: true })
-  //   return account
-  // } catch (err) {
-  //   console.log(err)
-  //   throw new BadRequest('Could not update name of the Account')
-  // }
+const updateJournal = Model => async formData => {
+  const journalId = _.get(formData, 'id')
+  const title = _.get(formData, 'title')
+
+  console.log('...formData:', formData)
+  try {
+    const journal = await Model.findByIdAndUpdate(
+      journalId,
+      {
+        title,
+      },
+      { new: true }
+    )
+    console.log('...Journal:', journal)
+    return journal
+  } catch (err) {
+    console.log(err)
+    throw new BadRequest('Could not update title of the journal')
+  }
 }
 
 export { saveJournal, updateJournal }
