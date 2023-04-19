@@ -1,17 +1,13 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import BadRequest from '../errors/badRequest'
-import NotFound from '../errors/notFound'
-import _ from 'lodash'
+// import NotFound from '../errors/notFound'
 import { service } from './service'
 
 const router = express.Router()
 
 router.post('/', async (req, res, next) => {
-  console.log('...REQ.BODY:', req.body)
-  const title = _.get(req, 'body.title')
-  const description = _.get(req, 'body.description')
-  const journalType = _.get(req, 'body.journalType')
+  const { title, description, journalType } = req.body
 
   if (!title || !description || !journalType)
     next(new BadRequest('Title, description and or type missing!'))
@@ -34,15 +30,11 @@ router.get('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   const title = req.body.title
   const { id } = req.params
+  if (!title) next(new BadRequest('Title is missing!'))
 
-  if (!id) next(new NotFound('Id is not found!'))
-
-  console.log('ID:', req.params.id)
+  // if (!id) next(new NotFound('Id is not found!'))
 
   const updated = await service.updateJournal({ title, id })
-
-  console.log(updated)
-
   res.status(StatusCodes.OK).json(updated)
 })
 
