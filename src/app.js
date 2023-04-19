@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/journal', accountRouter)
-
 app.use(ErrorHandler)
 
 export default app

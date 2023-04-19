@@ -2,8 +2,8 @@ import BadRequest from '../../errors/badRequest'
 import _ from 'lodash'
 
 const get = Model => async () => {
-  const getAccounts = await Model.find({})
-  return getAccounts
+  const getJournals = await Model.find({})
+  return getJournals
 }
 
 const getById = Model => async id => {

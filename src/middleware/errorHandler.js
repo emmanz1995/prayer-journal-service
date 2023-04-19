@@ -1,23 +1,41 @@
-import { StatusCodes } from 'http-status-codes'
-
 const ErrorHandler = (err, req, res, next) => {
-  console.log('...Error:', err)
+  const error = { ...err }
+  error.message = err.message
 
-  let customError = {
-    statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    msg: err.message || 'Something went TERRIBLY wrong!',
+  const code = errCode(err)
+
+  // For testing purposes TODO: to remove later
+  console.log('...Error:', err || undefined)
+
+  return res.status(code.status || 500).json({
+    errorCode: code.code,
+    errorMessage: err.message || 'Server Error',
+  })
+}
+
+/**
+ * Function for capturing error codes
+ * and their respective error statuses
+ * @param {Object} error
+ * @return {Object}
+ * */
+const errCode = error => {
+  let errorCode = {}
+  if (error.constructor.name === 'BadRequest') {
+    errorCode.code = 'JC01'
+    errorCode.status = 400
+  } else if (error.constructor.name === 'NotFound') {
+    errorCode = 'JC02'
+    errorCode = 404
+    // TODO: For the future
+  } else if (error.constructor.name === 'AuthorizationError') {
+    errorCode.code = 'JC03'
+    errorCode.status = 401
+  } else {
+    errorCode.code = 'Internal Server Error'
+    errorCode.status = 500
   }
-
-  if (err.name === 'ValidationError') {
-    customError.msg = Object.values(err.errors)
-      .map(val => val.message)
-      .join(',')
-    customError.statusCode = 400
-  }
-
-  return res
-    .status(customError.statusCode)
-    .json({ msg: customError.msg, statusCode: customError.statusCode })
+  return errorCode
 }
 
 export default ErrorHandler

@@ -1,10 +1,9 @@
-import CustomError from './customError'
-import StatusCode from 'http-status-codes'
+import CustomError from './authorizationError'
+// import StatusCode from 'http-status-codes'
 
-class BadRequest extends CustomError {
+class BadRequest extends Error {
   constructor(message) {
     super(message)
-    this.statusCode = StatusCode.BAD_REQUEST
   }
 }
 

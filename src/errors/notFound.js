@@ -1,11 +1,7 @@
-import CustomError from "./customError";
-import StatusCode from "http-status-codes";
-
-class NotFound extends CustomError {
+class NotFound extends Error {
   constructor(message) {
-    super(message);
-    this.statusCode = StatusCode.NOT_FOUND;
+    super(message)
   }
 }
 
-export default NotFound;
+export default NotFound

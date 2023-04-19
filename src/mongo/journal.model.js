@@ -20,5 +20,5 @@ const Journal = mongoose.model('journal', journalSchema)
 
 export const AddJournal = saveJournal(Journal)
 export const UpdateJournal = updateJournal(Journal)
-export const getJournal = get(Journal)
-export const getJournalById = getById(Journal)
+export const GetJournals = get(Journal)
+export const GetJournalById = getById(Journal)
