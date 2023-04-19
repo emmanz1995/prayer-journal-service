@@ -11,6 +11,10 @@ Model.findByIdAndUpdate = jest.fn(() => item => ({
   toObject: jest.fn(() => item),
 }))
 
+beforeEach(() => {
+  jest.clearAllMocks()
+})
+
 describe('Testing save', () => {
   beforeEach(() => {
     jest.clearAllMocks()
