@@ -56,7 +56,6 @@ describe('Testing save', () => {
 })
 
 describe('Testing update', () => {
-  // TODO: Solve this issue
   test('update by id - success', async () => {
     const formData = { id: '123', title: 'Your Mum' }
     Model.findByIdAndUpdate.mockImplementationOnce(() => formData)
@@ -64,8 +63,23 @@ describe('Testing update', () => {
     console.log('UpdateEntry:', updateEntry)
     expect(updateEntry).toEqual({ id: '123', title: 'Your Mum' })
     expect(Model.findByIdAndUpdate).toBeCalledTimes(1)
-    // expect(Model.findOneAndUpdate).toBeCalledWith({
-    //   title: 'Your Mum',
-    // })
+  })
+  test('updateEntry function is defined', async () => {
+    const updateJournalEntry = updateJournal(Model)
+    expect(updateJournalEntry).toBeDefined()
+  })
+
+  test('failed to update journal entry', async () => {
+    expect.assertions(2)
+    Model.findByIdAndUpdate.mockImplementationOnce(() => {
+      throw new BadRequest('oops')
+    })
+    try {
+      await updateJournal(Model)({})
+    } catch (err) {
+      console.log(err)
+      expect(err).toBeDefined()
+      expect(err.message).toEqual('oops')
+    }
   })
 })
