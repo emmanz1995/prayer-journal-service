@@ -23,7 +23,6 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   const journals = await service.getJournals()
-  console.log('...Journals:', journals)
   res.status(StatusCodes.OK).json(journals)
 })
 
