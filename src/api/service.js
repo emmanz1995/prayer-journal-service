@@ -1,4 +1,10 @@
-import { AddJournal, UpdateJournal, GetJournals } from '../mongo/journal.model'
+import {
+  AddJournal,
+  UpdateJournal,
+  GetJournals,
+  GetJournalById,
+  DeleteJournal,
+} from '../mongo/journal.model'
 import _ from 'lodash'
 
 const createJournal = async formData => {
@@ -28,9 +34,17 @@ const getJournals = async () => {
   }
 }
 
+const getJournalById = async id => {
+  try {
+    const getSingleEntry = await GetJournalById(id)
+    return getSingleEntry
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const updateJournal = async formData => {
   const { id, title } = formData
-  console.log('...FORMDATA2:', formData)
   try {
     const updateJournalEntry = await UpdateJournal({
       id,
@@ -42,4 +56,19 @@ const updateJournal = async formData => {
   }
 }
 
-export const service = { createJournal, updateJournal, getJournals }
+const deleteJournal = async id => {
+  try {
+    const removeJournal = await DeleteJournal(id)
+    return removeJournal
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const service = {
+  createJournal,
+  updateJournal,
+  getJournals,
+  getJournalById,
+  deleteJournal,
+}

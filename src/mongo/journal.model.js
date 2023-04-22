@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { saveJournal, updateJournal } from './models/save'
 import { get, getById } from './models/get'
+import { deleteJounalEntry } from './models/delete'
 
 const journalSchema = new mongoose.Schema(
   {
@@ -22,3 +23,4 @@ export const AddJournal = saveJournal(Journal)
 export const UpdateJournal = updateJournal(Journal)
 export const GetJournals = get(Journal)
 export const GetJournalById = getById(Journal)
+export const DeleteJournal = deleteJounalEntry(Journal)

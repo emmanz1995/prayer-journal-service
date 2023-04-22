@@ -26,6 +26,12 @@ router.get('/', async (req, res, next) => {
   res.status(StatusCodes.OK).json(journals)
 })
 
+router.get('/:id', async (req, res, next) => {
+  const { id } = req.params
+  const journal = await service.getJournalById(id)
+  res.status(StatusCodes.OK).json(journal)
+})
+
 router.put('/:id', async (req, res, next) => {
   const title = req.body.title
   const { id } = req.params
@@ -35,6 +41,12 @@ router.put('/:id', async (req, res, next) => {
 
   const updated = await service.updateJournal({ title, id })
   res.status(StatusCodes.OK).json(updated)
+})
+
+router.delete('/:id', async (req, res, next) => {
+  const { id } = req.params
+  const journal = await service.deleteJournal(id)
+  res.status(StatusCodes.OK).json(journal)
 })
 
 export default router
