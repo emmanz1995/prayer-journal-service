@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import { saveJournal, updateJournal } from './models/save'
-import { get, getById } from './models/get'
-import { deleteJounalEntry } from './models/delete'
+import { saveJournal, updateJournal } from './journals/save'
+import { get, getById } from './journals/get'
+import { deleteJounalEntry } from './journals/delete'
 
 const journalSchema = new mongoose.Schema(
   {

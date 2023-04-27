@@ -17,7 +17,6 @@ router.post('/', async (req, res, next) => {
     description,
     journalType,
   })
-  console.log(newJournal)
   res.status(StatusCodes.CREATED).json(newJournal)
 })
 
