@@ -86,7 +86,6 @@ describe('test get function', () => {
   test('should get all journal entries from db', async () => {
     Model.find.mockImplementationOnce(() => payload)
     const getJournalEntries = await get(Model)({})
-    console.log('...GetJournalEntries:', getJournalEntries)
     expect(getJournalEntries).toStrictEqual(payload)
     expect(Model.find).toBeCalledTimes(1)
     expect(Model.find).toBeCalledWith({})

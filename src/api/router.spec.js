@@ -142,7 +142,6 @@ describe('intergration test for update router', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
       .send(formData)
-    console.log('...Response:', response)
     expect(response.body.title).toContain('Mum3')
     expect(response.body.id).toContain('643db8c388f22f9d7395a0f5')
     expect(response.status).toEqual(200)

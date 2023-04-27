@@ -36,6 +36,7 @@ describe('Testing save', () => {
     }
     const createJournalEntry = await saveJournal(Model)(formData)
     expect(createJournalEntry).toEqual(formData)
+    expect(save).toHaveBeenCalledTimes(1)
   })
   test('saveAccount function is defined', async () => {
     const createJournalEntry = saveJournal(Model)
