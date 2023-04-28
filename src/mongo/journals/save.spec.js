@@ -82,7 +82,6 @@ describe('Testing update', () => {
     try {
       await updateJournal(Model)({})
     } catch (err) {
-      console.log(err)
       expect(err).toBeDefined()
       expect(err.message).toEqual('oops')
     }

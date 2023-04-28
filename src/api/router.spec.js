@@ -7,7 +7,9 @@ import { service } from './service'
 
 service.createJournal = jest.fn()
 service.getJournals = jest.fn()
+service.getJournalById = jest.fn()
 service.updateJournal = jest.fn()
+service.deleteJournal = jest.fn()
 
 describe('intergration test for save router', () => {
   const formData = {
@@ -129,6 +131,21 @@ describe('intergration test for get router', () => {
   })
 })
 
+describe('intergration test for getById router', () => {
+  test('should get a single journal entry - success', async () => {
+    const id = '64405083ab0f26aee8ee264f'
+    service.getJournalById.mockImplementationOnce(() => ({
+      id,
+      title: 'Bacon Cheese',
+      journalType: 'prayer',
+    }))
+
+    const response = await supertest(app).get(`/api/journal/${id}`).expect(200)
+    expect(response.status).toEqual(200)
+    expect(response.body.title).toContain('Bacon Cheese')
+  })
+})
+
 describe('intergration test for update router', () => {
   const id = '643db8c388f22f9d7395a0f5'
   const formData = {
@@ -147,5 +164,23 @@ describe('intergration test for update router', () => {
     expect(response.status).toEqual(200)
     expect(service.updateJournal).toHaveBeenCalledTimes(1)
     expect(service.updateJournal).toHaveBeenCalledWith(formData)
+  })
+})
+
+describe('intergration test for delete router', () => {
+  test('should delete a journal entry - success', async () => {
+    const id = '643ef213dd37ba91d9487e97'
+    service.deleteJournal.mockImplementationOnce(() => ({
+      id,
+      title: 'Bacon Cheese',
+      journalType: 'prayer',
+    }))
+    const response = await supertest(app)
+      .delete(`/api/journal/${id}`)
+      .expect(200)
+    expect(response.status).toEqual(200)
+    expect(response.body.title).toContain('Bacon Cheese')
+    expect(service.deleteJournal).toHaveBeenCalledTimes(1)
+    expect(service.deleteJournal).toHaveBeenCalledWith(id)
   })
 })
