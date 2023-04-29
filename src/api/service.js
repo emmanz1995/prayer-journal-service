@@ -23,6 +23,7 @@ const getJournals = async () => {
       return {
         _id: journal._id,
         title: journal.title,
+        description: journal.description,
         journalType: journal.journalType,
         createdAt: journal.createdAt,
         updatedAt: journal.updatedAt,
