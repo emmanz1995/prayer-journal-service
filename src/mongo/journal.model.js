@@ -6,11 +6,11 @@ import { deleteJounalEntry } from './journals/delete'
 const journalSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    description: { type: String, required: false },
+    description: { type: String, required: true },
     journalType: {
       type: String,
       enum: ['prayer', 'bible', 'habit'],
-      required: false,
+      required: true,
     },
     reminder: { type: Date, required: false },
   },

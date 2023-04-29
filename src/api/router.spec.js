@@ -53,7 +53,7 @@ describe('intergration test for save router', () => {
       .send({})
       .expect(400)
     expect(response.body.errorMessage).toContain(
-      'Title, description and or type missing!'
+      'Title is required, Description is required, Journal Type is required'
     )
     expect(response.body.errorCode).toContain('JC01')
     expect(response.status).toEqual(400)

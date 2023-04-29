@@ -3,22 +3,40 @@ import { StatusCodes } from 'http-status-codes'
 import BadRequest from '../errors/badRequest'
 // import NotFound from '../errors/notFound'
 import { service } from './service'
+import { check, validationResult } from 'express-validator'
 
 const router = express.Router()
 
-router.post('/', async (req, res, next) => {
-  const { title, description, journalType } = req.body
+router.post(
+  '/',
+  [
+    check('title', 'Title is required').not().notEmpty(),
+    check('description', 'Description is required').not().notEmpty(),
+    check('journalType', 'Journal Type is required').not().notEmpty(),
+  ],
+  async (req, res, next) => {
+    const { title, description, journalType } = req.body
 
-  if (!title || !description || !journalType)
-    next(new BadRequest('Title, description and or type missing!'))
+    const result = validationResult(req)
 
-  const newJournal = await service.createJournal({
-    title,
-    description,
-    journalType,
-  })
-  res.status(StatusCodes.CREATED).json(newJournal)
-})
+    if (!result.isEmpty())
+      return next(
+        new BadRequest(
+          `${result
+            .array()
+            .map(x => x.msg)
+            .join(', ')}`
+        )
+      )
+
+    const newJournal = await service.createJournal({
+      title,
+      description,
+      journalType,
+    })
+    res.status(StatusCodes.CREATED).json(newJournal)
+  }
+)
 
 router.get('/', async (req, res, next) => {
   const journals = await service.getJournals()
