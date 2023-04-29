@@ -17,7 +17,14 @@ const journalSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-const Journal = mongoose.model('journal', journalSchema)
+journalSchema.set('toJSON', {
+  transform: (doc, object) => {
+    object.id = object._id
+    delete object._id
+  },
+})
+
+export const Journal = mongoose.model('journal', journalSchema)
 
 export const AddJournal = saveJournal(Journal)
 export const UpdateJournal = updateJournal(Journal)
