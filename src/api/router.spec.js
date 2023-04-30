@@ -45,7 +45,9 @@ describe('intergration test for save router', () => {
 
   test('should throw error if req.body missing - 400', async () => {
     service.createJournal.mockImplementationOnce(() => {
-      new Error('Title, description and or type missing!')
+      new Error(
+        'Title is required, Description is required, Journal Type is required'
+      )
     })
     const response = await supertest(app)
       .post('/api/journal')
