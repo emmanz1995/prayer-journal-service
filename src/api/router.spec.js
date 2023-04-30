@@ -62,7 +62,7 @@ describe('intergration test for save router', () => {
   })
 })
 
-describe('intergration test for get router', () => {
+describe('integration test for get router', () => {
   test('should read all journal entries - success', async () => {
     service.getJournals.mockImplementationOnce(() => {
       return [
