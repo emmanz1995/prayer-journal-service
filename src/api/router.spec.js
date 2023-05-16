@@ -38,6 +38,7 @@ describe('intergration test for save router', () => {
       .send(formData)
       .expect(201)
     expect(response.body).toEqual(formData)
+    expect(response.statusCode).toEqual(201)
     expect(response.body.title).toContain('Ham Sandwich')
     expect(service.createJournal).toHaveBeenCalledTimes(1)
     expect(service.createJournal).toHaveBeenCalledWith(formData)
@@ -94,15 +95,24 @@ describe('intergration test for getById router', () => {
   test('should get a single journal entry - success', async () => {
     const id = '643db8efcbc42d4aa4bc8d5b'
     service.getJournalById.mockImplementationOnce(() => ({
-      id: '643db8efcbc42d4aa4bc8d5b',
+      _id: '643db8efcbc42d4aa4bc8d5b',
+      title: 'Bacon Cheese',
+      description: 'I want a bacon cheese sandwich!',
+      journalType: 'prayer',
+      createdAt: '2023-04-17T21:23:59.982Z',
+      updatedAt: '2023-04-17T21:23:59.982Z',
     }))
     const journalsAtEnd = await journalEntriesInDB()
     const title = journalsAtEnd && journalsAtEnd.map(j => j.title)
 
     const response = await supertest(app).get(`/api/journal/${id}`).expect(200)
     expect(response.status).toEqual(200)
-    expect(response.body.id).toContain('643db8efcbc42d4aa4bc8d5b')
+    expect(response.body._id).toContain('643db8efcbc42d4aa4bc8d5b')
     expect(title).toContain('Mum2')
+    expect(service.getJournalById).toHaveBeenCalledTimes(1)
+    expect(service.getJournalById).toHaveBeenCalledWith(
+      '643db8efcbc42d4aa4bc8d5b'
+    )
   })
 })
 
