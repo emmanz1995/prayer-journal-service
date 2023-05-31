@@ -7,10 +7,10 @@ const journalSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    journalType: {
-      type: String,
-      enum: ['prayer', 'bible', 'habit'],
-      required: true,
+    completedAt: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     reminder: { type: Date, required: false },
   },

@@ -12,10 +12,9 @@ router.post(
   [
     check('title', 'Title is required').not().notEmpty(),
     check('description', 'Description is required').not().notEmpty(),
-    check('journalType', 'Journal Type is required').not().notEmpty(),
   ],
   async (req, res, next) => {
-    const { title, description, journalType } = req.body
+    const { title, description } = req.body
 
     const result = validationResult(req)
 
@@ -32,7 +31,6 @@ router.post(
     const newJournal = await service.createJournal({
       title,
       description,
-      journalType,
     })
     res.status(StatusCodes.CREATED).json(newJournal)
   }

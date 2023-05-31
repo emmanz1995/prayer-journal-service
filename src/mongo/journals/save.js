@@ -1,10 +1,7 @@
 import _ from 'lodash'
 
 const saveJournal = Model => async doc => {
-  const newJournalEntry = new Model({
-    ...doc,
-    interestRate: 1.2,
-  })
+  const newJournalEntry = new Model(doc)
   return await newJournalEntry.save()
 }
 

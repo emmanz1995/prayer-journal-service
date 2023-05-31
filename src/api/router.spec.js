@@ -27,7 +27,6 @@ describe('intergration test for save router', () => {
     title: 'Ham Sandwich',
     description:
       "I want a nice grilled ham sandwich this weekend in Jesus' name",
-    journalType: 'prayer',
   }
 
   test('should create an new journal entry - success', async () => {
@@ -41,14 +40,16 @@ describe('intergration test for save router', () => {
     expect(response.statusCode).toEqual(201)
     expect(response.body.title).toContain('Ham Sandwich')
     expect(service.createJournal).toHaveBeenCalledTimes(1)
-    expect(service.createJournal).toHaveBeenCalledWith(formData)
+    expect(service.createJournal).toHaveBeenCalledWith({
+      title: 'Ham Sandwich',
+      description:
+        "I want a nice grilled ham sandwich this weekend in Jesus' name",
+    })
   })
 
   test('should throw error if req.body missing - 400', async () => {
     service.createJournal.mockImplementationOnce(() => {
-      new Error(
-        'Title is required, Description is required, Journal Type is required'
-      )
+      throw Error('Title is required, Description is required')
     })
     const response = await supertest(app)
       .post('/api/journal')
@@ -56,7 +57,7 @@ describe('intergration test for save router', () => {
       .send({})
       .expect(400)
     expect(response.body.errorMessage).toContain(
-      'Title is required, Description is required, Journal Type is required'
+      'Title is required, Description is required'
     )
     expect(response.body.errorCode).toContain('JC01')
     expect(response.status).toEqual(400)

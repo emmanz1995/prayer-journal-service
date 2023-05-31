@@ -7,7 +7,9 @@
   "scripts": {
     "start": "nodemon --es-module-specifier-resolution=node src/index.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "cypress": "cypress run",
+    "cypress:open": "cypress open"
   },
   "author": "Emmanuel Okuchukwu (eokuchukwu95@gmail.com)",
   "license": "ISC",
@@ -25,12 +27,22 @@
     "mongoose": "^7.0.3"
   },
   "devDependencies": {
+    "cypress": "^12.13.0",
     "jest": "^29.5.0",
     "jest-cli": "^29.5.0",
+    "nock": "^13.3.1",
     "supertest": "^6.3.3"
   },
   "jest": {
     "verbose": true,
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "testMatch": [
+      "<rootDir>/**/__tests__/**/?(*.)(spec|test).js",
+      "<rootDir>/**/?(*.)(spec|test).js"
+    ],
     "transform": {},
     "collectCoverage": true,
     "coverageReporters": [
