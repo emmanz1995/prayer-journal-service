@@ -8,13 +8,13 @@
     },
     {
         "id": 2,
-        "path": "/profile",
+        "path": "/testimonies",
         "name": "Testimonies",
         "image": "assets/icons/na-calendar-po.png"
     },
     {
         "id": 3,
-        "path": "/profile",
+        "path": "/answered",
         "name": "Answered",
         "image": "assets/icons/na-calendar-point.png"
     }

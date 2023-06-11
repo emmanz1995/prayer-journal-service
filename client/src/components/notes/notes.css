@@ -1,3 +1,17 @@
 .na-notes{
-    flex: 10;
+    flex: 10.3;
+}
+
+.na-notes-wrapper{
+    padding: 30px;
+}
+
+.na-notes-header{
+   color: var(--blue);
+}
+
+.na-notes-numbers{
+    color: var(--black);
+    margin: 10px 0;
+    font-size: 15px;
 }

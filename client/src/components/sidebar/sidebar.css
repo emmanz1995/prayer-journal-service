@@ -1,11 +1,11 @@
 .na-sidebar{
-    flex: 2;
+    flex: 1.7;
     height: calc(100vh - 50px);
     background-color: var(--gray);
 }
 
 .na-sidebar-wrapper{
-    padding: 20px 30px;
+    padding: 30px;
 }
 
 .na-sidebar-toggle{
