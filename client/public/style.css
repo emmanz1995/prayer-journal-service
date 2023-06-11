@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/*css variables*/
+:root {
+    --blue: #3d76f4;
+    --white: #ffffff;
+    --gray:  #f9f9f9;
+    --light-gray: #cecece;
+    --dark-gray: #7c7c7c;
+    --large-text: 24px;
+    --medium-text: 16px;
+    --small-text: 10px;
+    --bold-weight: bold;
+    --semi-weight: 600;
+    --light-weight:  400;
+    --lighter-weight: light;
+}

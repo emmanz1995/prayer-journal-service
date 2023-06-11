@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "path": "/",
+        "name": "Prayer Wall",
+        "image": "assets/icons/na-calendar-sil.png"
+        
+    },
+    {
+        "id": 2,
+        "path": "/profile",
+        "name": "Testimonies",
+        "image": "assets/icons/na-calendar-po.png"
+    },
+    {
+        "id": 3,
+        "path": "/profile",
+        "name": "Answered",
+        "image": "assets/icons/na-calendar-point.png"
+    }
+]

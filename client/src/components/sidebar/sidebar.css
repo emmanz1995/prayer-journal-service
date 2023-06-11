@@ -1,0 +1,40 @@
+.na-sidebar{
+    flex: 2;
+    height: calc(100vh - 50px);
+    background-color: var(--gray);
+}
+
+.na-sidebar-wrapper{
+    padding: 20px 30px;
+}
+
+.na-sidebar-toggle{
+    margin-left: 50px;
+}
+
+.na-sidebar-list{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.na-sidebar-list-item{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.na-sidebar-icon{
+    color: var(--dark-gray);
+    width: 25px;
+}
+
+.na-sidebar-list-text{
+    margin-left: 10px;
+    color: var(--dark-gray);
+    font-weight: var(--light-weight);
+}
+
+a{
+    text-decoration: none;
+}

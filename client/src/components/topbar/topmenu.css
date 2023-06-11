@@ -1,0 +1,77 @@
+.na-topmenu{
+    height: 50px;
+    width: 100%;
+    background-color: var(--blue);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+.na-topmenu-left{
+    flex: 4;
+    margin-left: 20px;
+}
+
+.na-topmenu-logo{
+    font-size: var(--large-text);
+    font-weight: var(--bold-weight);
+    color: var(--white);
+    cursor: pointer;
+}
+
+.na-topmenu-center{
+    flex: 4;
+}
+
+.na-topmenu-search{
+    width: 70%;
+    margin: 0 auto;
+    height: 30px;
+    background-color: var(--white);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.na-topmenu-search-icon{
+    font-size: 20px !important;
+    margin-left: 10px;
+    color: var(--light-gray);
+}
+
+.na-topmenu-inputsearch{
+    border: none;
+    border-radius: 20px;
+    width: 90%;
+}
+
+.na-topmenu-inputsearch:focus{
+    outline: none;
+}
+
+.na-topmenu-inputsearch::placeholder{
+   color: var(--light-gray);
+}
+
+.na-topmenu-right{
+    flex: 4 1;
+    display: flex;
+    grid-gap: 1rem;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+span.na-topmenu-name{
+    font-weight: var(--light-weight);
+    font-size: var(--medium-text);
+    color: var(--white);
+}
+
+.na-topmenu-profile{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
