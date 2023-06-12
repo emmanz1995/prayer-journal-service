@@ -10,7 +10,14 @@
 
 .na-topmenu-left{
     flex: 4;
+    align-items: center;
+    display: flex;
     margin-left: 20px;
+}
+
+.na-topmenu-icon{
+    width: 25px;
+    margin-right: 3px;
 }
 
 .na-topmenu-logo{
@@ -64,7 +71,7 @@
 }
 
 span.na-topmenu-name{
-    font-weight: var(--light-weight);
+    font-weight: var(--semi-weight);
     font-size: var(--medium-text);
     color: var(--white);
 }
@@ -75,3 +82,4 @@ span.na-topmenu-name{
     object-fit: cover;
     border-radius: 50%;
 }
+

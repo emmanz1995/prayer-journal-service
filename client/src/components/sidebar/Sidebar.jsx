@@ -1,29 +1,35 @@
+import React from "react";
 import "./sidebar.css";
 import { NavLink } from 'react-router-dom';
-import React, { useState } from 'react';
-import Data from "./sidebarData.json";
 
-const Sidebar = ({children}) => {
+const Sidebar = ({ items }) => {
   return (
-      <div className="na-sidebar">
-         <div className="na-sidebar-wrapper">
-             {
-                 Data.map((item, index)=>(
-                     <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                      <ul className="na-sidebar-list">
-                        <li className="na-sidebar-list-item">
-                        <span><img src={item.image} alt="icons" className="na-sidebar-icon"/></span>
-                        <span className="na-sidebar-list-text">{item.name}</span>
-                        </li>
-                      </ul>
-                     </NavLink>
-                 ))
-             }
-         </div>
-         <main>{children}</main>
+    <div className="na-sidebar">
+      <div className="na-sidebar-wrapper">
+      {items && items.map(({ id, path, icon, name }) => (
+        <NavLink to={path} key={id} className="na-sidebar-link">
+          <ul className="na-sidebar-list">
+          <li className="na-sidebar-list-item">
+            <span><img src={icon} alt="icons" className="na-sidebar-icon" /></span>
+            <span className="na-sidebar-list-text">{name}</span>
+          </li>
+          </ul> 
+        </NavLink>
+      ))}
       </div>
+    </div>
   );
-}; 
+};
 
 export default Sidebar;
+
+
+  
+
+
+
+
+
+  
+
 

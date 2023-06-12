@@ -1,12 +1,14 @@
 import "./topmenu.css";
+import { NavLink } from 'react-router-dom';
 import { Search } from "@mui/icons-material";
 
 export default function Topbar() {
   return (
     <div className="na-topmenu">
-      <div className="na-topmenu-left">
+      <NavLink to="/" className="na-topmenu-left">
+        <span><img src="assets/icons/na-note.png" alt="icon" className="na-topmenu-icon" /></span>
         <span className="na-topmenu-logo">NarrowRoad</span>
-      </div>
+      </NavLink>
       <div className="na-topmenu-center">
         <div className="na-topmenu-search">
           <Search className="na-topmenu-search-icon"/>
@@ -18,5 +20,6 @@ export default function Topbar() {
         <img src="/assets/people/profile1.jpeg" alt="topmenu-profile" className="na-topmenu-profile"/>
       </div>
     </div>
+    
   )
 }

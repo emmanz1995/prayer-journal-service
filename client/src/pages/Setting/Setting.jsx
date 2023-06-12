@@ -1,10 +1,10 @@
 import Topbar from "../../components/topbar/Topmenu";
 import Sidebar from "../../components/sidebar/Sidebar";
-import Data from "../../components/Data/sidebarData"
+import Data from "./sidebarData";
 import Notes from "../../components/notes/Notes";
-import "./prayerwall.css";
+import "./setting.css";
 
-export default function Home() {
+export default function Setting() {
   return (
     <>
       <Topbar/>
@@ -15,3 +15,5 @@ export default function Home() {
     </>
   )
 }
+
+
