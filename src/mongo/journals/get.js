@@ -1,6 +1,3 @@
-import BadRequest from '../../errors/badRequest'
-import _ from 'lodash'
-
 const get = Model => async () => {
   const getJournals = await Model.find({})
 

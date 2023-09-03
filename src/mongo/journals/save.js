@@ -8,12 +8,12 @@ const saveJournal = Model => async doc => {
 const updateJournal = Model => async formData => {
   const journalId = _.get(formData, 'id')
   const title = _.get(formData, 'title')
+  const description = _.get(formData, 'description')
+  const completedAt = _.get(formData, 'completedAt')
 
   const journal = await Model.findByIdAndUpdate(
     journalId,
-    {
-      title,
-    },
+    { title, description, completedAt },
     { new: true }
   )
   return journal

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import { saveJournal, updateJournal } from './journals/save'
-import { get, getById } from './journals/get'
-import { deleteJounalEntry } from './journals/delete'
+import { saveJournal, updateJournal } from './journals/save.js'
+import { get, getById } from './journals/get.js'
+import { deleteJounalEntry } from './journals/delete.js'
 
 const journalSchema = new mongoose.Schema(
   {
@@ -21,6 +21,7 @@ journalSchema.set('toJSON', {
   transform: (doc, object) => {
     object.id = object._id
     delete object._id
+    delete object.__v
   },
 })
 

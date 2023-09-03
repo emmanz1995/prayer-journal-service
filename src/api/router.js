@@ -1,8 +1,8 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
-import BadRequest from '../errors/badRequest'
+import BadRequest from '../errors/badRequest.js'
 // import NotFound from '../errors/notFound'
-import { service } from './service'
+import { service } from './service.js'
 import { check, validationResult } from 'express-validator'
 
 const router = express.Router()
@@ -27,7 +27,6 @@ router.post(
             .join(', ')}`
         )
       )
-
     const newJournal = await service.createJournal({
       title,
       description,
@@ -48,13 +47,20 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  const title = req.body.title
-  const { id } = req.params
+  const {
+    body: { title, description, completedAt },
+    params: { id },
+  } = req
+
   if (!title) next(new BadRequest('Title is missing!'))
+  if (!description) next(new BadRequest('Description is missing!'))
 
-  // if (!id) next(new NotFound('Id is not found!'))
-
-  const updated = await service.updateJournal({ title, id })
+  const updated = await service.updateJournal({
+    title,
+    description,
+    completedAt,
+    id,
+  })
   res.status(StatusCodes.OK).json(updated)
 })
 

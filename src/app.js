@@ -1,9 +1,9 @@
 import express from 'express'
 import 'express-async-errors'
 import cors from 'cors'
-import ErrorHandler from './middleware/errorHandler'
-import accountRouter from './api/router'
-import connectDB from './mongo/connectDB'
+import ErrorHandler from './middleware/errorHandler.js'
+import accountRouter from './api/router.js'
+import connectDB from './mongo/connectDB.js'
 
 const app = express()
 

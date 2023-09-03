@@ -1,6 +1,6 @@
+import { jest } from '@jest/globals'
 jest.mock('./service')
 
-import { jest } from '@jest/globals'
 import app from '../app'
 import supertest from 'supertest'
 import { service } from './service'
@@ -11,11 +11,11 @@ import {
   journalEntriesInDB,
 } from '../__mock__/journalTestData'
 
-service.createJournal = jest.fn()
-service.getJournals = jest.fn()
-service.getJournalById = jest.fn()
-service.updateJournal = jest.fn()
-service.deleteJournal = jest.fn()
+// service.createJournal = jest.fn()
+// service.getJournals = jest.fn()
+// service.getJournalById = jest.fn()
+// service.updateJournal = jest.fn()
+// service.deleteJournal = jest.fn()
 
 beforeEach(async () => {
   await Journal.deleteMany()

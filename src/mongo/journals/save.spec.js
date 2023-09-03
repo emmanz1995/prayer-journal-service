@@ -38,10 +38,7 @@ describe('Testing save', () => {
     expect(createJournalEntry).toEqual(formData)
     expect(save).toHaveBeenCalledTimes(1)
   })
-  test('saveAccount function is defined', async () => {
-    const createJournalEntry = saveJournal(Model)
-    expect(createJournalEntry).toBeDefined()
-  })
+
   test('failed to save new account', async () => {
     save.mockImplementationOnce(() => {
       throw new BadRequest('Title, description and or type missing!')
@@ -62,16 +59,28 @@ describe('Testing save', () => {
 
 describe('Testing update', () => {
   test('update by id - success', async () => {
-    const formData = { id: '123', title: 'Your Mum' }
-    Model.findByIdAndUpdate.mockImplementationOnce(() => formData)
+    const formData = {
+      id: '123',
+      title: 'Your Mum',
+      description: 'Your Momma Jokes!',
+      completedAt: true
+    }
+    Model.findByIdAndUpdate.mockResolvedValue(formData)
     const updateEntry = await updateJournal(Model)(formData)
-    console.log('UpdateEntry:', updateEntry)
-    expect(updateEntry).toEqual({ id: '123', title: 'Your Mum' })
+    expect(updateEntry).toEqual({
+      id: '123',
+      title: 'Your Mum',
+      description: 'Your Momma Jokes!',
+      completedAt: true
+    })
     expect(Model.findByIdAndUpdate).toBeCalledTimes(1)
-  })
-  test('updateEntry function is defined', async () => {
-    const updateJournalEntry = updateJournal(Model)
-    expect(updateJournalEntry).toBeDefined()
+    expect(Model.findByIdAndUpdate).toBeCalledWith('123', {
+      description: 'Your Momma Jokes!',
+      completedAt: true,
+      title: 'Your Mum'
+    }, {
+      new: true
+    })
   })
 
   test('failed to update journal entry', async () => {
