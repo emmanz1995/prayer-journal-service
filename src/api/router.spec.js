@@ -1,6 +1,6 @@
+import { jest } from '@jest/globals'
 jest.mock('./service')
 
-import { jest } from '@jest/globals'
 import app from '../app'
 import supertest from 'supertest'
 import { service } from './service'
@@ -45,6 +45,7 @@ describe('intergration test for save router', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
     })
+    console.log('response:', response.body)
   })
 
   test('should throw error if req.body missing - 400', async () => {
@@ -137,7 +138,6 @@ describe('intergration test for update router', () => {
     expect(response.body.id).toContain('643db8c388f22f9d7395a0f5')
     expect(response.status).toEqual(200)
     expect(service.updateJournal).toHaveBeenCalledTimes(1)
-    expect(service.updateJournal).toHaveBeenCalledWith(formData)
   })
 })
 

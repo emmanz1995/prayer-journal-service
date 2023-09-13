@@ -4,9 +4,6 @@ const ErrorHandler = (err, req, res, next) => {
 
   const code = errCode(err)
 
-  // For testing purposes TODO: to remove later
-  console.log('...Error:', err || undefined)
-
   return res.status(code.status || 500).json({
     errorCode: code.code,
     errorMessage: err.message || 'Server Error',

@@ -5,6 +5,7 @@ import { deleteJounalEntry } from './journals/delete'
 
 const journalSchema = new mongoose.Schema(
   {
+    _id: String,
     title: { type: String, required: true },
     description: { type: String, required: true },
     completedAt: {
@@ -19,8 +20,7 @@ const journalSchema = new mongoose.Schema(
 
 journalSchema.set('toJSON', {
   transform: (doc, object) => {
-    object.id = object._id
-    delete object._id
+    delete object.__v
   },
 })
 

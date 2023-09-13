@@ -1,7 +1,8 @@
 import _ from 'lodash'
+import { generateId } from '../../helpers/generateId'
 
 const saveJournal = Model => async doc => {
-  const newJournalEntry = new Model(doc)
+  const newJournalEntry = new Model({ _id: generateId(25), ...doc })
   return await newJournalEntry.save()
 }
 
