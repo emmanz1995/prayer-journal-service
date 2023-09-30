@@ -1,4 +1,4 @@
-import { Journal } from '../mongo/journal.model'
+const { Journal } = require('../mongo/journal.model')
 
 const initialJournalEntries = [
   {
@@ -24,4 +24,4 @@ const journalEntriesInDB = async () => {
   return journals && journals.map(journal => journal.toJSON())
 }
 
-export { initialJournalEntries, journalEntriesInDB }
+module.exports = { initialJournalEntries, journalEntriesInDB }

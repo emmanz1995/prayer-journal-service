@@ -1,4 +1,4 @@
-import { generateId } from './generateId'
+const { generateId } = require('./generateId')
 
 describe('generating a unique Id', () => {
   it('should generate a unique Id', () => {

@@ -1,6 +1,5 @@
-import { saveJournal, updateJournal } from './save'
-import { jest } from '@jest/globals'
-import BadRequest from '../../errors/badRequest'
+const { saveJournal, updateJournal } = require('./save')
+const BadRequest = require('../../errors/badRequest')
 
 const save = jest.fn()
 const Model = jest.fn(() => ({

@@ -1,5 +1,4 @@
-import { jest } from '@jest/globals'
-import { get, getById } from './get'
+const { get, getById } = require('./get')
 
 const Model = jest.fn(() => ({ find, findById }))
 Model.find = jest.fn()

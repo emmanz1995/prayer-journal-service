@@ -1,5 +1,5 @@
-import app from "./app";
-import http from "http";
+const app = require("./app")
+const http = require("http")
 
 const PORT = 3001;
 

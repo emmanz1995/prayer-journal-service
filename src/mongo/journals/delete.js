@@ -1,5 +1,8 @@
-import _ from 'lodash'
-
+/**
+ * Query for deleting an existing journal from the collection
+ * @param {object} Model
+ * @returns deleted data
+ */
 const deleteJounalEntry = Model => async id => {
   const deleteEntry = await Model.findByIdAndDelete(id)
 
@@ -8,4 +11,4 @@ const deleteJounalEntry = Model => async id => {
   return deleteEntry
 }
 
-export { deleteJounalEntry }
+module.exports = { deleteJounalEntry }

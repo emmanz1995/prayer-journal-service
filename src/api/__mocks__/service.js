@@ -4,10 +4,17 @@ const getJournalById = jest.fn()
 const updateJournal = jest.fn()
 const deleteJournal = jest.fn()
 
-export default () => ({
-  createJournal,
-  getJournals,
-  getJournalById,
-  updateJournal,
-  deleteJournal,
-})
+const service = jest.fn(() => ({ createJournal, getJournals, getJournalById, updateJournal, deleteJournal }))
+
+service.createJournal = createJournal
+service.getJournals = getJournals
+
+// module.exports = () => ({
+//   createJournal,
+//   getJournals,
+//   getJournalById,
+//   updateJournal,
+//   deleteJournal,
+// })
+
+module.exports = service;

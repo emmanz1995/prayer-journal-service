@@ -1,5 +1,4 @@
-import { deleteJounalEntry } from './delete'
-import { jest } from '@jest/globals'
+const { deleteJounalEntry } = require('./delete')
 
 const Model = jest.fn()
 Model.findByIdAndDelete = jest.fn()

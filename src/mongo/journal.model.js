@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
-import { saveJournal, updateJournal } from './journals/save'
-import { get, getById } from './journals/get'
-import { deleteJounalEntry } from './journals/delete'
+const mongoose = require('mongoose')
+const { saveJournal, updateJournal } = require('./journals/save')
+const { get, getById } = require('./journals/get')
+const { deleteJounalEntry } = require('./journals/delete')
 
 const journalSchema = new mongoose.Schema(
   {
@@ -14,6 +14,15 @@ const journalSchema = new mongoose.Schema(
       default: false,
     },
     reminder: { type: Date, required: false },
+    hasBibleVerse: {
+      type: Boolean,
+      required: false,
+    },
+    bibleBook: { type: String, required: false },
+    bibleChapter: { type: String, required: false },
+    bibleVerse: { type: String, required: false },
+    bibleTranslation: { type: String, required: false },
+    output: Object
   },
   { timestamps: true }
 )
@@ -24,10 +33,12 @@ journalSchema.set('toJSON', {
   },
 })
 
-export const Journal = mongoose.model('journal', journalSchema)
+const Journal = mongoose.model('journal', journalSchema)
 
-export const AddJournal = saveJournal(Journal)
-export const UpdateJournal = updateJournal(Journal)
-export const GetJournals = get(Journal)
-export const GetJournalById = getById(Journal)
-export const DeleteJournal = deleteJounalEntry(Journal)
+const AddJournal = saveJournal(Journal)
+const UpdateJournal = updateJournal(Journal)
+const GetJournals = get(Journal)
+const GetJournalById = getById(Journal)
+const DeleteJournal = deleteJounalEntry(Journal)
+
+module.exports = { Journal, AddJournal, UpdateJournal, GetJournals, GetJournalById, DeleteJournal }

@@ -1,15 +1,29 @@
-import {
+const {
   AddJournal,
   UpdateJournal,
   GetJournals,
   GetJournalById,
   DeleteJournal,
-} from '../mongo/journal.model'
-import _ from 'lodash'
+} = require('../mongo/journal.model')
+const _ = require('lodash')
+const { bibleConnector } = require('../connector')
 
 const createJournal = async formData => {
   try {
-    const newJournalEntry = await AddJournal(formData)
+    const { bibleBook, bibleChapter, bibleVerse, bibleTranslation, hasBibleVerse } = formData
+
+    const biblePayload = await bibleConnector({
+      book: bibleBook,
+      chapter: bibleChapter,
+      verse: bibleVerse,
+      translation: bibleTranslation
+    })
+
+    const newJournalEntry = await AddJournal({
+      output: biblePayload,
+      hasBibleVerse,
+      ...formData
+    })
     return newJournalEntry
   } catch (err) {
     console.log(err)
@@ -25,6 +39,8 @@ const getJournals = async () => {
         title: journal.title,
         description: journal.description,
         journalType: journal.journalType,
+
+        output: journal.output,
         createdAt: journal.createdAt,
         updatedAt: journal.updatedAt,
       }
@@ -66,7 +82,7 @@ const deleteJournal = async id => {
   }
 }
 
-export const service = {
+module.exports = {
   createJournal,
   updateJournal,
   getJournals,

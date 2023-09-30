@@ -3,4 +3,4 @@ class AuthorizationError extends Error {
     super(message)
   }
 }
-export default AuthorizationError
+module.exports = AuthorizationError

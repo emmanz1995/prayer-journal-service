@@ -1,6 +1,8 @@
-import BadRequest from '../../errors/badRequest'
-import _ from 'lodash'
-
+/**
+ * Query for getting all journals in the collection
+ * @param {object} Model
+ * @returns retrieved data
+ */
 const get = Model => async () => {
   const getJournals = await Model.find({})
 
@@ -9,6 +11,11 @@ const get = Model => async () => {
   return getJournals
 }
 
+/**
+ * Query for getting one journal from the collection
+ * @param {object} Model
+ * @returns retrieved data
+ */
 const getById = Model => async id => {
   const getAccountById = await Model.findById(id)
 
@@ -17,4 +24,4 @@ const getById = Model => async id => {
   return getAccountById
 }
 
-export { get, getById }
+module.exports = { get, getById }

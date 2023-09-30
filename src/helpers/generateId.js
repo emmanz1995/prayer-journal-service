@@ -1,3 +1,8 @@
+/**
+ * Generating an Id for mongoose documents
+ * @param {number} length
+ * @returns generated Id
+ */
 const generateId = length => {
   let id = ''
   const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'
@@ -12,4 +17,4 @@ const generateId = length => {
   return id
 }
 
-export { generateId }
+module.exports = { generateId }

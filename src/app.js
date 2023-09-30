@@ -1,9 +1,10 @@
-import express from 'express'
-import 'express-async-errors'
-import cors from 'cors'
-import ErrorHandler from './middleware/errorHandler'
-import accountRouter from './api/router'
-import connectDB from './mongo/connectDB'
+const express = require('express')
+require('express-async-errors')
+const cors = require('cors')
+const ErrorHandler = require('./middleware/errorHandler')
+const accountRouter = require('./api/router')
+const connectDB = require('./mongo/connectDB')
+const { bibleConnector } = require('./connector')
 
 const app = express()
 
@@ -18,7 +19,9 @@ app.get('/', (req, res) => {
   res.send('<h1>Welcome to the banking tranfer app</h1>')
 })
 
+// bibleConnector({ book: 'John', chapter: '1', verse: '3', translation: 'web' }).then(res => console.log(res))
+
 app.use('/api/journal', accountRouter)
 app.use(ErrorHandler)
 
-export default app
+module.exports = app

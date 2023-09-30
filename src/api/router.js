@@ -1,9 +1,9 @@
-import express from 'express'
-import { StatusCodes } from 'http-status-codes'
-import BadRequest from '../errors/badRequest'
+const express = require('express')
+const { StatusCodes } = require('http-status-codes')
+const BadRequest = require('../errors/badRequest')
 // import NotFound from '../errors/notFound'
-import { service } from './service'
-import { check, validationResult } from 'express-validator'
+const service = require('./service')
+const { check, validationResult } = require('express-validator')
 
 const router = express.Router()
 
@@ -14,7 +14,7 @@ router.post(
     check('description', 'Description is required').not().notEmpty(),
   ],
   async (req, res, next) => {
-    const { title, description } = req.body
+    // const { title, description, } = req.body
 
     const result = validationResult(req)
 
@@ -28,10 +28,8 @@ router.post(
         )
       )
 
-    const newJournal = await service.createJournal({
-      title,
-      description,
-    })
+    const newJournal = await service.createJournal(req.body)
+
     res.status(StatusCodes.CREATED).json(newJournal)
   }
 )
@@ -48,8 +46,8 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  const title = req.body.title
-  const { id } = req.params
+  // const title = req.body.title
+  const { params: { id }, body: { title } } = req
   if (!title) next(new BadRequest('Title is missing!'))
 
   // if (!id) next(new NotFound('Id is not found!'))
@@ -64,4 +62,4 @@ router.delete('/:id', async (req, res, next) => {
   res.status(StatusCodes.OK).json(journal)
 })
 
-export default router
+module.exports = router

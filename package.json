@@ -2,11 +2,10 @@
   "name": "bank-ojc-service",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --es-module-specifier-resolution=node src/index.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --detectOpenHandles",
+    "start": "nodemon src/index.js",
+    "test": "jest --detectOpenHandles",
     "test:coverage": "jest --coverage",
     "cypress": "cypress run",
     "cypress:open": "cypress open"

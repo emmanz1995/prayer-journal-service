@@ -14,7 +14,7 @@ const ErrorHandler = (err, req, res, next) => {
  * Function for capturing error codes
  * and their respective error statuses
  * @param {Object} error
- * @return {Object}
+ * @returns error codes and error statues
  * */
 const errCode = error => {
   let errorCode = {}
@@ -35,4 +35,4 @@ const errCode = error => {
   return errorCode
 }
 
-export default ErrorHandler
+module.exports = ErrorHandler
