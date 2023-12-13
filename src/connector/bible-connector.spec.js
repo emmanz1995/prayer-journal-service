@@ -1,6 +1,6 @@
 jest.mock('axios')
 const axios = require('axios')
-const { bibleConnector } = require('./bible-connector')
+const bibleConnector = require('./bible-connector')
 
 describe('axios call for bible api', () => {
   it('should retrieve bible data', async () => {

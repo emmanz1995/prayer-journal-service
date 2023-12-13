@@ -46,7 +46,6 @@
       "<rootDir>/**/__tests__/**/?(*.)(spec|test).js",
       "<rootDir>/**/?(*.)(spec|test).js"
     ],
-    "transform": {},
     "transformIgnorePatterns": ["/node_modules/"],
     "collectCoverage": true,
     "coverageReporters": [

@@ -1,3 +1,3 @@
-const { bibleConnector } = require('./bible-connector')
+const bibleConnector = require('./bible-connector')
 
-module.exports = { bibleConnector }
+module.exports = bibleConnector

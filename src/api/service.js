@@ -6,7 +6,7 @@ const {
   DeleteJournal,
 } = require('../mongo/journal.model')
 const _ = require('lodash')
-const { bibleConnector } = require('../connector')
+const bibleConnector = require('../connector')
 
 const createJournal = async formData => {
   try {
@@ -19,33 +19,31 @@ const createJournal = async formData => {
       translation: bibleTranslation
     })
 
-    const newJournalEntry = await AddJournal({
+    return await AddJournal({
       output: biblePayload,
       hasBibleVerse,
       ...formData
     })
-    return newJournalEntry
   } catch (err) {
     console.log(err)
+    throw err
   }
 }
 
 const getJournals = async () => {
   try {
     const journals = await GetJournals()
-    const transformedJournals = _.map(journals, journal => {
+    return _.map(journals, journal => {
       return {
-        _id: journal._id,
+        id: journal._id,
         title: journal.title,
         description: journal.description,
         journalType: journal.journalType,
-
         output: journal.output,
         createdAt: journal.createdAt,
         updatedAt: journal.updatedAt,
       }
     })
-    return transformedJournals
   } catch (err) {
     console.log(err)
   }

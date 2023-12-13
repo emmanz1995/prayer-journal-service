@@ -36,4 +36,4 @@ const bibleConnector = async opts => {
   return data
 }
 
-module.exports = { bibleConnector };
+module.exports = bibleConnector;

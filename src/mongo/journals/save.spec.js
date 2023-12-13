@@ -61,11 +61,11 @@ describe('Testing save', () => {
 
 describe('Testing update', () => {
   test('update by id - success', async () => {
-    const formData = { id: '123', title: 'Your Mum' }
+    const formData = { _id: '123', title: 'Your Mum' }
     Model.findByIdAndUpdate.mockImplementationOnce(() => formData)
     const updateEntry = await updateJournal(Model)(formData)
     console.log('UpdateEntry:', updateEntry)
-    expect(updateEntry).toEqual({ id: '123', title: 'Your Mum' })
+    expect(updateEntry).toEqual({ _id: '123', title: 'Your Mum' })
     expect(Model.findByIdAndUpdate).toBeCalledTimes(1)
   })
   test('updateEntry function is defined', async () => {

@@ -12,7 +12,10 @@ const saveJournal = Model => async doc => {
     _id: generateId(25),
     ...doc,
   })
-  return await newJournalEntry.save()
+  const newJournal = await newJournalEntry.save()
+  console.log('...newJournal:', newJournal)
+
+  return newJournal
 }
 
 /**
@@ -21,7 +24,7 @@ const saveJournal = Model => async doc => {
  * @returns updated data
  */
 const updateJournal = Model => async formData => {
-  const journalId = _.get(formData, 'id')
+  const journalId = _.get(formData, '_id')
   const title = _.get(formData, 'title')
 
   const journal = await Model.findByIdAndUpdate(
