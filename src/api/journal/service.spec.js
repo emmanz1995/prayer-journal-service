@@ -4,13 +4,13 @@ const {
   GetJournals,
   GetJournalById,
   DeleteJournal,
-} = require('../mongo/journal.model')
+} = require('../../mongo/journal.model')
 const service = require('./service')
 const _ = require('lodash')
-const bibleConnector = require('../connector')
+const bibleConnector = require('../../connector')
 
-jest.mock('../connector');
-jest.mock('../mongo/journal.model')
+jest.mock('../../connector');
+jest.mock('../../mongo/journal.model')
 
 describe('createJournal', () => {
   it('should create a journal entry successfully', async () => {

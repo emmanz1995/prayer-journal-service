@@ -1,25 +1,19 @@
-const app = require('../app')
+const app = require('../../app')
 const supertest = require('supertest')
 const { createJournal, getJournals, getJournalById, updateJournal, deleteJournal } = require('./service')
-const { Journal } = require('../mongo/journal.model')
+const { Journal } = require('../../mongo/journal.model')
 const mongoose = require('mongoose')
 const {
   initialJournalEntries,
   journalEntriesInDB,
-} = require('../__mock__/journalTestData')
+} = require('../../__mock__/journalTestData')
 
 beforeEach(async () => {
   await Journal.deleteMany()
   await Journal.insertMany(initialJournalEntries)
 })
 
-jest.mock('./service', () => ({
-  createJournal: jest.fn(),
-  getJournals: jest.fn(),
-  getJournalById: jest.fn(),
-  updateJournal: jest.fn(),
-  deleteJournal: jest.fn(),
-}))
+jest.mock('./service')
 
 describe('intergration test for save router', () => {
   const formData = {
@@ -163,5 +157,5 @@ describe('intergration test for delete router', () => {
 })
 
 afterAll(() => {
-  mongoose.connection.close()
+  mongoose?.connection?.close()
 })

@@ -2,9 +2,10 @@ const express = require('express')
 require('express-async-errors')
 const cors = require('cors')
 const ErrorHandler = require('./middleware/errorHandler')
-const accountRouter = require('./api/router')
+const accountRouter = require('./api/journal/router')
 const connectDB = require('./mongo/connectDB')
 const { bibleConnector } = require('./connector')
+const userRouter = require('./api/user')
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 // bibleConnector({ book: 'John', chapter: '1', verse: '3', translation: 'web' }).then(res => console.log(res))
 
 app.use('/api/journal', accountRouter)
+app.use('/api/user', userRouter)
 app.use(ErrorHandler)
 
 module.exports = app

@@ -4,9 +4,9 @@ const {
   GetJournals,
   GetJournalById,
   DeleteJournal,
-} = require('../mongo/journal.model')
+} = require('../../mongo/journal.model')
 const _ = require('lodash')
-const bibleConnector = require('../connector')
+const bibleConnector = require('../../connector')
 
 const createJournal = async formData => {
   try {
