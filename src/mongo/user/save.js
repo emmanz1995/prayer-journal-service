@@ -2,7 +2,9 @@ const saveUser = Model => async payload => {
   const createUser = new Model(payload);
 
   const newUser = await createUser.save();
-  console.log('...new user:', newUser)
+
+  if (newUser === null) return {}
+
   return newUser;
 }
 

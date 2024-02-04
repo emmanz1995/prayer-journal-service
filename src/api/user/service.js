@@ -5,10 +5,10 @@ const BadRequest = require('../../errors/badRequest')
 
 const signUp = async body => {
   const { username, email, password, confirmPassword, avatarUrl, coverPhotoUrl, denomination } = body;
-  let user = await FindUser(email)
-  if(password !== confirmPassword) {
-    throw new BadRequest('Password and confirm password do not match');
-  }
+  let user = await FindUser(email);
+  // if(password !== confirmPassword) {
+  //   throw new BadRequest('Password and confirm password do not match');
+  // }
   if(user) {
     throw new BadRequest('User already exists');
   }
@@ -24,13 +24,14 @@ const signUp = async body => {
       avatarUrl,
       coverPhotoUrl,
       denomination
-    })
+    });
+
     user.password = hashedPassword;
     user.save();
 
     return user;
   } catch(err) {
-    throw err
+    throw err;
   }
 }
 

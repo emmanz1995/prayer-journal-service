@@ -18,12 +18,10 @@ const journalSchema = new mongoose.Schema(
       type: Boolean,
       required: false,
     },
-    postedBy: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
-      }
-    ],
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    },
     bibleBook: { type: String, required: false },
     bibleChapter: { type: String, required: false },
     bibleVerse: { type: String, required: false },
