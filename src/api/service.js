@@ -33,17 +33,15 @@ const createJournal = async formData => {
 const getJournals = async () => {
   try {
     const journals = await GetJournals()
-    return _.map(journals, journal => {
-      return {
-        id: journal._id,
-        title: journal.title,
-        description: journal.description,
-        journalType: journal.journalType,
-        output: journal.output,
-        createdAt: journal.createdAt,
-        updatedAt: journal.updatedAt,
-      }
-    })
+    return _.map(journals, journal => ({
+      id: journal._id,
+      title: journal.title,
+      description: journal.description,
+      journalType: journal.journalType,
+      output: journal.output,
+      createdAt: journal.createdAt,
+      updatedAt: journal.updatedAt,
+    }))
   } catch (err) {
     console.log(err)
   }
@@ -51,30 +49,29 @@ const getJournals = async () => {
 
 const getJournalById = async id => {
   try {
-    const getSingleEntry = await GetJournalById(id)
-    return getSingleEntry
+    return await GetJournalById(id)
   } catch (err) {
     console.log(err)
+    throw(err)
   }
 }
 
 const updateJournal = async formData => {
   const { id, title } = formData
   try {
-    const updateJournalEntry = await UpdateJournal({
+    return await UpdateJournal({
       id,
       title,
     })
-    return updateJournalEntry
   } catch (err) {
     console.log(err)
+    throw(err)
   }
 }
 
 const deleteJournal = async id => {
   try {
-    const removeJournal = await DeleteJournal(id)
-    return removeJournal
+    return await DeleteJournal(id)
   } catch (err) {
     console.log(err)
   }
