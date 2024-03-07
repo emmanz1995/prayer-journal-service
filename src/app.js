@@ -1,11 +1,13 @@
 const express = require('express')
 require('express-async-errors')
 const cors = require('cors')
+const dotenv = require('dotenv')
 const ErrorHandler = require('./middleware/errorHandler')
 const accountRouter = require('./api/journal/router')
 const connectDB = require('./mongo/connectDB')
 const userRouter = require('./api/user')
 const authRouter = require('./api/auth')
+dotenv.config()
 
 const app = express()
 

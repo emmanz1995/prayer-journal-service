@@ -8,7 +8,7 @@ const authJwt = async (req,res,next) => {
   if(req.headers?.authorization?.startsWith('Bearer')) {
     token = req?.headers?.authorization?.split(' ')[1]
     if(token) {
-      const decoded = await jwt.verify(token, 'OI[(.#1ax7Pf%XO>:(1zia^qFGS0KK')
+      const decoded = await jwt.verify(token, process.env.SECRET_KEY);
 
       try {
         const user = await FindUserById(decoded.id)

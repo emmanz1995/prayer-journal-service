@@ -24,7 +24,7 @@ const signIn = async body => {
     username: user.username,
   }
 
-  const token = await jwt.sign(userInfo, 'OI[(.#1ax7Pf%XO>:(1zia^qFGS0KK', {
+  const token = await jwt.sign(userInfo, process.env.SECRET_KEY, {
     expiresIn: 3600
   });
 
