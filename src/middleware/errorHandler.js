@@ -24,7 +24,7 @@ const errCode = error => {
   } else if (error.constructor.name === 'NotFound') {
     errorCode = 'JC02'
     errorCode = 404
-    // TODO: For the future
+    // TODO: For future auth feature
   } else if (error.constructor.name === 'AuthorizationError') {
     errorCode.code = 'JC03'
     errorCode.status = 401

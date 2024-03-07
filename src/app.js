@@ -4,8 +4,8 @@ const cors = require('cors')
 const ErrorHandler = require('./middleware/errorHandler')
 const accountRouter = require('./api/journal/router')
 const connectDB = require('./mongo/connectDB')
-const { bibleConnector } = require('./connector')
 const userRouter = require('./api/user')
+const authRouter = require('./api/auth')
 
 const app = express()
 
@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/journal', accountRouter)
 app.use('/api/user', userRouter)
+app.use('/api/auth', authRouter)
 app.use(ErrorHandler)
 
 module.exports = app
