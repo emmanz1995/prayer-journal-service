@@ -1,3 +1,3 @@
-const userRouter = require('./router');
+const userRouter = require('./router')
 
-module.exports = userRouter;
+module.exports = userRouter

@@ -1,9 +1,15 @@
-const express = require('express');
-const { check, validationResult } = require('express-validator');
-const _ = require('lodash');
-const BadRequest = require('../../errors/badRequest');
+const express = require('express')
+const { check, validationResult } = require('express-validator')
+const _ = require('lodash')
+const BadRequest = require('../../errors/badRequest')
 // import NotFound from '../errors/notFound'
-const { createJournal, getJournalById, getJournals, updateJournal, deleteJournal } = require('./service')
+const {
+  createJournal,
+  getJournalById,
+  getJournals,
+  updateJournal,
+  deleteJournal,
+} = require('./service')
 
 const router = express.Router()
 
@@ -22,14 +28,14 @@ router.post(
           `${result
             .array()
             .map(x => x.msg)
-            .join(', ')}`
-        )
+            .join(', ')}`,
+        ),
       )
 
     const newJournal = await createJournal(req.body)
 
     res.status(201).json(newJournal)
-  }
+  },
 )
 
 router.get('/', async (req, res, next) => {
@@ -45,7 +51,10 @@ router.get('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   // const title = req.body.title
-  const { params: { id }, body: { title } } = req
+  const {
+    params: { id },
+    body: { title },
+  } = req
   if (!title) next(new BadRequest('Title is missing!'))
 
   // if (!id) next(new NotFound('Id is not found!'))

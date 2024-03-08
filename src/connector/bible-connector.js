@@ -15,7 +15,7 @@ const axios = require('axios')
  */
 
 const bibleConnector = async opts => {
-  const { book, chapter, verse, translation } = opts;
+  const { book, chapter, verse, translation } = opts
 
   const url = `https://bible-api.com/${book} ${chapter}:${verse}`
   let data
@@ -24,16 +24,16 @@ const bibleConnector = async opts => {
     url,
     method: 'GET',
     params: {
-      translation
-    }
+      translation,
+    },
   }
 
   try {
-    ({ data } = await axios(options))
-  } catch(err) {
+    ;({ data } = await axios(options))
+  } catch (err) {
     console.log(err)
   }
   return data
 }
 
-module.exports = bibleConnector;
+module.exports = bibleConnector

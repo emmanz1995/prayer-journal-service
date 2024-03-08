@@ -1,21 +1,21 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { FindUser } = require('../../mongo/user.model');
-const BadRequest = require('../../errors/badRequest');
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const { FindUser } = require('../../mongo/user.model')
+const BadRequest = require('../../errors/badRequest')
 // const AuthenticationRequest = require('../../errors/authorizationError');
 
 const signIn = async body => {
-  const { email, password } = body;
-  let user = await FindUser(email);
+  const { email, password } = body
+  let user = await FindUser(email)
 
-  if(!user) {
-    throw new BadRequest('This email is not found!');
+  if (!user) {
+    throw new BadRequest('This email is not found!')
   }
 
-  const comparePassword = bcrypt.compareSync(password, user?.password);
+  const comparePassword = bcrypt.compareSync(password, user?.password)
 
-  if(!comparePassword) {
-    throw new BadRequest('Your Password does not match');
+  if (!comparePassword) {
+    throw new BadRequest('Your Password does not match')
   }
 
   const userInfo = {
@@ -25,13 +25,13 @@ const signIn = async body => {
   }
 
   const token = await jwt.sign(userInfo, process.env.SECRET_KEY, {
-    expiresIn: 3600
-  });
+    expiresIn: 3600,
+  })
 
   return {
     userInfo,
-    token
-  };
+    token,
+  }
 }
 
-module.exports = { signIn };
+module.exports = { signIn }

@@ -1,3 +1,3 @@
-const journalRouter = require('./router');
+const journalRouter = require('./router')
 
-module.exports = journalRouter;
+module.exports = journalRouter

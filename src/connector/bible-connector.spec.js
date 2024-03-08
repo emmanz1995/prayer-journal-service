@@ -12,23 +12,23 @@ describe('axios call for bible api', () => {
           book_name: 'John',
           chapter: 1,
           verse: 3,
-          text: 'All things were made through him. Without him was not anything made that has been made.\n'
-        }
+          text: 'All things were made through him. Without him was not anything made that has been made.\n',
+        },
       ],
       text: 'All things were made through him. Without him was not anything made that has been made.\n',
       translation_id: 'web',
       translation_name: 'World English Bible',
-      translation_note: 'Public Domain'
+      translation_note: 'Public Domain',
     }
     axios?.mockResolvedValue({
-      data: bibleRef
+      data: bibleRef,
     })
 
     const opts = {
       book: 'John',
       chapter: '1',
       verse: '3',
-      translation: 'kjv'
+      translation: 'kjv',
     }
 
     const res = await bibleConnector(opts)

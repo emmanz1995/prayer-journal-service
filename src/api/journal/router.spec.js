@@ -1,6 +1,12 @@
 const app = require('../../app')
 const supertest = require('supertest')
-const { createJournal, getJournals, getJournalById, updateJournal, deleteJournal } = require('./service')
+const {
+  createJournal,
+  getJournals,
+  getJournalById,
+  updateJournal,
+  deleteJournal,
+} = require('./service')
 const { Journal } = require('../../mongo/journal.model')
 const mongoose = require('mongoose')
 const {
@@ -18,14 +24,14 @@ jest.mock('./service')
 describe('intergration test for save router', () => {
   const formData = {
     _id: {
-      inverse: false
+      inverse: false,
     },
     title: 'Ham Sandwich',
     description:
       "I want a nice grilled ham sandwich this weekend in Jesus' name",
     completedAt: false,
     createdAt: expect.any(String),
-    updatedAt: expect.any(String)
+    updatedAt: expect.any(String),
   }
 
   it('should create an new journal entry - success', async () => {
@@ -57,7 +63,7 @@ describe('intergration test for save router', () => {
       .send({})
       .expect(400)
     expect(response.body.errorMessage).toContain(
-      'Title is required, Description is required'
+      'Title is required, Description is required',
     )
     expect(response.body.errorCode).toContain('JC01')
     expect(response.status).toEqual(400)
@@ -111,9 +117,7 @@ describe('intergration test for getById router', () => {
     expect(response.body._id).toContain('643db8efcbc42d4aa4bc8d5b')
     expect(title).toContain('Mum2')
     expect(getJournalById).toHaveBeenCalledTimes(1)
-    expect(getJournalById).toHaveBeenCalledWith(
-      '643db8efcbc42d4aa4bc8d5b'
-    )
+    expect(getJournalById).toHaveBeenCalledWith('643db8efcbc42d4aa4bc8d5b')
   })
 })
 
@@ -150,7 +154,7 @@ describe('intergration test for delete router', () => {
       .delete(`/api/journal/${id}`)
       .expect(200)
     expect(response.status).toEqual(200)
-    expect(response.body).toEqual({id: '643ef213dd37ba91d9487e97'})
+    expect(response.body).toEqual({ id: '643ef213dd37ba91d9487e97' })
     expect(deleteJournal).toHaveBeenCalledTimes(1)
     expect(deleteJournal).toHaveBeenCalledWith('643ef213dd37ba91d9487e97')
   })

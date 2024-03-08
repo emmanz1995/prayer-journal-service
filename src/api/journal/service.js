@@ -10,19 +10,25 @@ const bibleConnector = require('../../connector')
 
 const createJournal = async formData => {
   try {
-    const { bibleBook, bibleChapter, bibleVerse, bibleTranslation, hasBibleVerse } = formData
+    const {
+      bibleBook,
+      bibleChapter,
+      bibleVerse,
+      bibleTranslation,
+      hasBibleVerse,
+    } = formData
 
     const biblePayload = await bibleConnector({
       book: bibleBook,
       chapter: bibleChapter,
       verse: bibleVerse,
-      translation: bibleTranslation
+      translation: bibleTranslation,
     })
 
     return await AddJournal({
       output: biblePayload,
       hasBibleVerse,
-      ...formData
+      ...formData,
     })
   } catch (err) {
     console.log(err)
@@ -43,7 +49,7 @@ const getJournals = async () => {
       updatedAt: journal.updatedAt,
     }))
   } catch (err) {
-    console.log(err)
+    throw err
   }
 }
 
@@ -51,8 +57,7 @@ const getJournalById = async id => {
   try {
     return await GetJournalById(id)
   } catch (err) {
-    console.log(err)
-    throw(err)
+    throw err
   }
 }
 
@@ -64,8 +69,7 @@ const updateJournal = async formData => {
       title,
     })
   } catch (err) {
-    console.log(err)
-    throw(err)
+    throw err
   }
 }
 
@@ -73,7 +77,7 @@ const deleteJournal = async id => {
   try {
     return await DeleteJournal(id)
   } catch (err) {
-    console.log(err)
+    throw err
   }
 }
 

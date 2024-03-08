@@ -20,15 +20,15 @@ const journalSchema = new mongoose.Schema(
     },
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user'
+      ref: 'user',
     },
     bibleBook: { type: String, required: false },
     bibleChapter: { type: String, required: false },
     bibleVerse: { type: String, required: false },
     bibleTranslation: { type: String, required: false },
-    output: Object
+    output: Object,
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
 journalSchema.set('toJSON', {
@@ -45,4 +45,11 @@ const GetJournals = get(Journal)
 const GetJournalById = getById(Journal)
 const DeleteJournal = deleteJounalEntry(Journal)
 
-module.exports = { Journal, AddJournal, UpdateJournal, GetJournals, GetJournalById, DeleteJournal }
+module.exports = {
+  Journal,
+  AddJournal,
+  UpdateJournal,
+  GetJournals,
+  GetJournalById,
+  DeleteJournal,
+}

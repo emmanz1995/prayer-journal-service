@@ -6,6 +6,6 @@ describe('generating a unique Id', () => {
   })
 
   it('should return undefined', () => {
-    expect(generateId(0)).toEqual("")
+    expect(generateId(0)).toEqual('')
   })
 })

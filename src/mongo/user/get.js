@@ -8,13 +8,13 @@ const get = Model => async email => {
 
 const getById = Model => async id => {
   const getUser = await Model.findById(id).select({ password: 0 })
-  if(getUser === null) return {}
+  if (getUser === null) return {}
 
-  return getUser;
+  return getUser
 }
 
 module.exports = {
   getMultiple,
   getById,
-  get
+  get,
 }
