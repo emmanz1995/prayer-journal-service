@@ -33,7 +33,7 @@ describe('Testing save', () => {
       description:
         "I want a Bacon Cheese sandwich this weekend in Jesus' name.",
       journalType: 'Prayer',
-      userId: '65bfc61f241c483f5e82e689'
+      userId: '65bfc61f241c483f5e82e689',
     }
     const createJournalEntry = await saveJournal(Model)(formData)
     expect(createJournalEntry).toEqual({

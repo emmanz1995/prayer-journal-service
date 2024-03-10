@@ -156,7 +156,7 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: false,
-      _id: 'd443343432dr34f'
+      _id: 'd443343432dr34f',
     }
 
     const createJournal = await service.createJournal(formData)
@@ -196,7 +196,7 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: false,
-      _id: 'd443343432dr34f'
+      _id: 'd443343432dr34f',
     }
     try {
       await service.createJournal(formData)

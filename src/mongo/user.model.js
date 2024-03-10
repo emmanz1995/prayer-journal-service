@@ -52,4 +52,11 @@ const AddNewUser = saveUser(User)
 const UpdateUser = updateUser(User)
 // const DeleteUser = removeUser(User);
 
-module.exports = { FindUsers, FindUser, FindUserById, AddNewUser, UpdateUser }
+module.exports = {
+  FindUsers,
+  FindUser,
+  FindUserById,
+  AddNewUser,
+  UpdateUser,
+  User,
+}

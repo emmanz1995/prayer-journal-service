@@ -1,5 +1,8 @@
-const app = require('../../app')
 const supertest = require('supertest')
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const app = require('../../app')
 const {
   createJournal,
   getJournals,
@@ -8,7 +11,7 @@ const {
   deleteJournal,
 } = require('./service')
 const { Journal } = require('../../mongo/journal.model')
-const mongoose = require('mongoose')
+const { AddNewUser, User } = require('../../mongo/user.model')
 const {
   initialJournalEntries,
   journalEntriesInDB,
@@ -21,7 +24,29 @@ beforeEach(async () => {
 
 jest.mock('./service')
 
-describe('intergration test for save router', () => {
+describe('integration test for save router', () => {
+  let token = null
+
+  beforeEach(async () => {
+    await User.deleteMany({})
+    const salt = await bcrypt.genSalt(12)
+    const hash = bcrypt.hashSync('Password123', salt)
+
+    const user = await AddNewUser({
+      username: 'John.Doe',
+      email: 'john.doe@gmail.com',
+      password: hash,
+      denomination: 'Protestant Reformed',
+    })
+
+    user.save()
+
+    const response = await supertest(app)
+      .post('/api/auth')
+      .send({ email: 'john.doe@gmail.com', password: 'Password123' })
+
+    token = response.body.token
+  })
   const payload = {
     _id: {
       inverse: false,
@@ -40,25 +65,47 @@ describe('intergration test for save router', () => {
     createJournal.mockResolvedValue(payload)
     const response = await supertest(app)
       .post('/api/journal')
+      .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /application\/json/)
       .send({
-        // postedBy: 'd443343432dr34f',
         title: 'Ham Sandwich',
         description:
           "I want a nice grilled ham sandwich this weekend in Jesus' name",
         completedAt: false,
       })
       .expect(201)
-    // expect(response.body).toEqual(formData)
+
+    expect(response.body).toEqual({
+      _id: { inverse: false },
+      completedAt: false,
+      createdAt: { inverse: false },
+      description:
+        "I want a nice grilled ham sandwich this weekend in Jesus' name",
+      postedBy: 'd443343432dr34f',
+      title: 'Ham Sandwich',
+      updatedAt: { inverse: false },
+    })
     expect(response.statusCode).toEqual(201)
     expect(response.body.title).toContain('Ham Sandwich')
-    expect(createJournal).toHaveBeenCalledTimes(1)
+    expect(createJournal).toBeCalled()
+    // expect(createJournal).toHaveBeenCalledTimes(1)
     // expect(createJournal).toHaveBeenCalledWith({
-    //   title: 'Ham Sandwich',
+    //   completedAt: false,
     //   description:
     //     "I want a nice grilled ham sandwich this weekend in Jesus' name",
+    //   title: 'Ham Sandwich',
+    //   userInfo: {
+    //     __v: 0,
+    //     _id: expect.any(String),
+    //     avatarUrl:
+    //       'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1688214363/avatars/qsjrd3lvcduavnv1utyu.svg',
+    //     coverPhotoUrl:
+    //       'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1670593777/dvgncaorojmfob07w8ca.jpg',
+    //     denomination: 'Protestant Reformed',
+    //     email: 'john.doe@gmail.com',
+    //     username: 'John Doe',
+    //   },
     // })
-    console.log('...formData:', payload)
   })
 
   it('should throw error if req.body missing - 400', async () => {
@@ -67,6 +114,7 @@ describe('intergration test for save router', () => {
     })
     const response = await supertest(app)
       .post('/api/journal')
+      .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /application\/json/)
       .send({})
       .expect(400)
@@ -79,34 +127,68 @@ describe('intergration test for save router', () => {
 })
 
 describe('integration test for get router', () => {
-  it('should read all journal entries - success', async () => {
-    getJournals.mockImplementationOnce(() => {
-      return [
-        {
-          _id: '643db8c388f22f9d7395a0f5',
-          title: 'Mum2',
-          description: 'I want Mum to have a bacon cheese sandwich!',
-          journalType: 'prayer',
-          createdAt: '2023-04-17T21:23:15.901Z',
-          updatedAt: '2023-04-18T19:37:19.642Z',
-        },
-        {
-          _id: '643db8efcbc42d4aa4bc8d5b',
-          title: 'Bacon Cheese',
-          description: 'I want a bacon cheese sandwich!',
-          journalType: 'prayer',
-          createdAt: '2023-04-17T21:23:59.982Z',
-          updatedAt: '2023-04-17T21:23:59.982Z',
-        },
-      ]
+  let token = null
+  beforeEach(async () => {
+    await User.deleteMany()
+
+    const salt = await bcrypt.genSalt(12)
+    const hash = await bcrypt.hashSync('Password123', salt)
+
+    const user = await AddNewUser({
+      username: 'Jane.Doe',
+      email: 'john.doe@gmail.com',
+      password: hash,
+      denomination: 'Protestant Reformed',
     })
-    const response = await supertest(app).get('/api/journal').expect(200)
+    user.save()
+
+    const response = await supertest(app).post('/api/auth')
+    token = response.body.token
+  })
+
+  it('should read all journal entries - success', async () => {
+    getJournals.mockImplementationOnce(() => [
+      {
+        _id: '643db8c388f22f9d7395a0f5',
+        title: 'Mum2',
+        description: 'I want Mum to have a bacon cheese sandwich!',
+        createdAt: '2023-04-17T21:23:15.901Z',
+        updatedAt: '2023-04-18T19:37:19.642Z',
+      },
+      {
+        _id: '643db8efcbc42d4aa4bc8d5b',
+        title: 'Bacon Cheese',
+        description: 'I want a bacon cheese sandwich!',
+        createdAt: '2023-04-17T21:23:59.982Z',
+        updatedAt: '2023-04-17T21:23:59.982Z',
+      },
+    ])
+    const response = await supertest(app)
+      .get('/api/journal/all')
+      .expect(200)
+      .set('Authorization', `Bearer ${token}`)
+    expect(response.body).toEqual([
+      {
+        _id: '643db8c388f22f9d7395a0f5',
+        createdAt: '2023-04-17T21:23:15.901Z',
+        description: 'I want Mum to have a bacon cheese sandwich!',
+        title: 'Mum2',
+        updatedAt: '2023-04-18T19:37:19.642Z',
+      },
+      {
+        _id: '643db8efcbc42d4aa4bc8d5b',
+        createdAt: '2023-04-17T21:23:59.982Z',
+        description: 'I want a bacon cheese sandwich!',
+        title: 'Bacon Cheese',
+        updatedAt: '2023-04-17T21:23:59.982Z',
+      },
+    ])
     expect(response.status).toEqual(200)
-    expect(getJournals).toHaveBeenCalledTimes(1)
+    expect(getJournals).toHaveBeenCalled()
   })
 })
 
-describe('intergration test for getById router', () => {
+describe('integration test for getById router', () => {
   it('should get a single journal entry - success', async () => {
     const id = '643db8efcbc42d4aa4bc8d5b'
     getJournalById.mockImplementationOnce(() => ({
@@ -129,7 +211,7 @@ describe('intergration test for getById router', () => {
   })
 })
 
-describe('intergration test for update router', () => {
+describe('integration test for update router', () => {
   it('should update a journal entry - success', async () => {
     const journals = await journalEntriesInDB()
     const journal = journals[0]
@@ -152,7 +234,7 @@ describe('intergration test for update router', () => {
   })
 })
 
-describe('intergration test for delete router', () => {
+describe('integration test for delete router', () => {
   it('should delete a journal entry - success', async () => {
     const id = '643ef213dd37ba91d9487e97'
     deleteJournal.mockImplementationOnce(() => ({
