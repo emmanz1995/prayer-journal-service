@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { saveJournal, updateJournal } = require('./journals/save')
-const { get, getById } = require('./journals/get')
+const { get, getById, GetMyPRs } = require('./journals/get')
 const { deleteJounalEntry } = require('./journals/delete')
 
 const journalSchema = new mongoose.Schema(
@@ -44,6 +44,7 @@ const UpdateJournal = updateJournal(Journal)
 const GetJournals = get(Journal)
 const GetJournalById = getById(Journal)
 const DeleteJournal = deleteJounalEntry(Journal)
+const getPrayerRequestForLoggedInUser = GetMyPRs(Journal)
 
 module.exports = {
   Journal,
@@ -52,4 +53,5 @@ module.exports = {
   GetJournals,
   GetJournalById,
   DeleteJournal,
+  getPrayerRequestForLoggedInUser,
 }

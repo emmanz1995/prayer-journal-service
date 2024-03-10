@@ -12,6 +12,10 @@ const saveJournal = Model => async doc => {
     _id: generateId(25),
     ...doc,
   })
+
+  console.log('...doc.userId:', doc?.userId)
+
+  newJournalEntry.postedBy = doc?.userId
   const newJournal = await newJournalEntry.save()
   console.log('...newJournal:', newJournal)
 

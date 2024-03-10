@@ -18,7 +18,6 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    // select: false
   },
   denomination: {
     type: String,
@@ -36,18 +35,12 @@ const userSchema = new Schema({
       'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1670593777/dvgncaorojmfob07w8ca.jpg',
     required: false,
   },
-  friends: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-    },
-  ],
-  prayerRequest: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'journal',
-    },
-  ],
+  // friends: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'user',
+  //   },
+  // ],
 })
 
 const User = mongoose.model('user', userSchema)

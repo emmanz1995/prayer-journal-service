@@ -7,21 +7,19 @@ const authJwt = async (req, res, next) => {
 
   if (req.headers?.authorization?.startsWith('Bearer')) {
     token = req?.headers?.authorization?.split(' ')[1]
-    if (token) {
-      const decoded = await jwt.verify(token, process.env.SECRET_KEY)
 
-      try {
-        const user = await FindUserById(decoded.id)
-        req.user = user
-
+    try {
+      if (token) {
+        const decoded = await jwt.verify(token, process.env.SECRET_KEY)
+        req.user = await FindUserById(decoded.id)
         next()
-      } catch (err) {
-        next()
-        throw new AuthorizationError('Unauthorized access!')
       }
-    } else {
+    } catch (err) {
+      next()
       throw new AuthorizationError('Unauthorized access!')
     }
+  } else {
+    throw new AuthorizationError('Unauthorized access!')
   }
 }
 

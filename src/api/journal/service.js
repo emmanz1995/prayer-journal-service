@@ -4,6 +4,7 @@ const {
   GetJournals,
   GetJournalById,
   DeleteJournal,
+  getPrayerRequestForLoggedInUser,
 } = require('../../mongo/journal.model')
 const _ = require('lodash')
 const bibleConnector = require('../../connector')
@@ -16,7 +17,10 @@ const createJournal = async formData => {
       bibleVerse,
       bibleTranslation,
       hasBibleVerse,
+      userInfo,
     } = formData
+
+    const userId = userInfo?._id
 
     const biblePayload = await bibleConnector({
       book: bibleBook,
@@ -25,11 +29,16 @@ const createJournal = async formData => {
       translation: bibleTranslation,
     })
 
-    return await AddJournal({
+    const createNewJournal = await AddJournal({
       output: biblePayload,
       hasBibleVerse,
+      userId,
       ...formData,
     })
+
+    console.log('...createNewJournal:', createNewJournal)
+
+    return createNewJournal
   } catch (err) {
     console.log(err)
     throw err
@@ -45,6 +54,7 @@ const getJournals = async () => {
       description: journal.description,
       journalType: journal.journalType,
       output: journal.output,
+      postedBy: journal.postedBy,
       createdAt: journal.createdAt,
       updatedAt: journal.updatedAt,
     }))
@@ -56,6 +66,14 @@ const getJournals = async () => {
 const getJournalById = async id => {
   try {
     return await GetJournalById(id)
+  } catch (err) {
+    throw err
+  }
+}
+
+const getMyJournalEntities = async userInfo => {
+  try {
+    return await getPrayerRequestForLoggedInUser(userInfo)
   } catch (err) {
     throw err
   }
@@ -87,4 +105,5 @@ module.exports = {
   getJournals,
   getJournalById,
   deleteJournal,
+  getMyJournalEntities,
 }

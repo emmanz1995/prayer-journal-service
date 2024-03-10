@@ -19,22 +19,32 @@ describe('Testing save', () => {
     jest.clearAllMocks()
   })
   test('should save an account to db', async () => {
-    save.mockImplementationOnce(() => {
-      return {
-        title: 'Bacon Cheese',
-        description:
-          "I want a Bacon Cheese sandwich this weekend in Jesus' name.",
-        journalType: 'Prayer',
-      }
-    })
+    save.mockImplementationOnce(() => ({
+      title: 'Bacon Cheese',
+      description:
+        "I want a Bacon Cheese sandwich this weekend in Jesus' name.",
+      journalType: 'Prayer',
+      postedBy: '65bfc61f241c483f5e82e689',
+      createdAt: '2024-03-10T00:30:37.955Z',
+      updatedAt: '2024-03-10T00:30:37.955Z',
+    }))
     const formData = {
       title: 'Bacon Cheese',
       description:
         "I want a Bacon Cheese sandwich this weekend in Jesus' name.",
       journalType: 'Prayer',
+      userId: '65bfc61f241c483f5e82e689'
     }
     const createJournalEntry = await saveJournal(Model)(formData)
-    expect(createJournalEntry).toEqual(formData)
+    expect(createJournalEntry).toEqual({
+      title: 'Bacon Cheese',
+      description:
+        "I want a Bacon Cheese sandwich this weekend in Jesus' name.",
+      journalType: 'Prayer',
+      postedBy: '65bfc61f241c483f5e82e689',
+      createdAt: '2024-03-10T00:30:37.955Z',
+      updatedAt: '2024-03-10T00:30:37.955Z',
+    })
     expect(save).toHaveBeenCalledTimes(1)
   })
   test('saveAccount function is defined', async () => {

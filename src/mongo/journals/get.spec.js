@@ -1,4 +1,4 @@
-const { get, getById } = require('./get')
+const { get, getById, GetMyPRs } = require('./get')
 
 const Model = jest.fn(() => ({ find, findById }))
 Model.find = jest.fn()
@@ -82,7 +82,7 @@ describe('test get function', () => {
     },
   ]
 
-  test('should get all journal entries from db', async () => {
+  it('should get all journal entries from db', async () => {
     Model.find.mockImplementationOnce(() => payload)
     const getJournalEntries = await get(Model)({})
     expect(getJournalEntries).toStrictEqual(payload)
@@ -100,11 +100,11 @@ describe('test get function', () => {
     expect(getJournalEntries[0].updatedAt).toStrictEqual(expect.any(String))
     expect(getJournalEntries).toBeTruthy()
   })
-  test('get function is defined', async () => {
+  it('should define get function', async () => {
     const getJournalEntries = get(Model)({})
     expect(getJournalEntries).toBeDefined()
   })
-  test('failed to save new account - 500', async () => {
+  it('should fail to save new account - 500', async () => {
     Model.find.mockImplementationOnce(() => {
       const error = new Error('Internal server error!')
       error.statusCode = 500
@@ -119,7 +119,7 @@ describe('test get function', () => {
 })
 
 describe('test getById function', () => {
-  test('should get all journal entries from db', async () => {
+  it('should get all journal entries from db', async () => {
     Model.findById.mockImplementationOnce(() => ({
       _id: '643ee3b946deec1b1cea4019',
       title: 'Bacon Cheese2',
@@ -143,12 +143,12 @@ describe('test getById function', () => {
     expect(getJournalEntry.createdAt).toEqual(expect.any(String))
     expect(getJournalEntry.updatedAt).toEqual(expect.any(String))
   })
-  test('getById function is defined', async () => {
+  it('should define getById function', async () => {
     const id = '643ee3b946deec1b1cea4019'
     const getJournalEntry = get(Model)(id)
     expect(getJournalEntry).toBeDefined()
   })
-  test('failed to save new account - 500', () => {
+  it('should fail to save new account - 500', () => {
     Model.find.mockImplementationOnce(() => {
       const error = new Error('Internal server error!')
       error.statusCode = 500
@@ -161,5 +161,113 @@ describe('test getById function', () => {
         expect(err.message).toEqual('Internal server error')
         expect(err.statusCode).toEqual(500)
       })
+  })
+})
+
+describe('test GetMyPRs function', () => {
+  it('should get all journal entries from db', async () => {
+    Model.find.mockResolvedValue([
+      [
+        {
+          _id: 'cdqlWkpCDR68ooGwniCTdUgPy',
+          title: "Let's go bowling!",
+          description: "Cousin, it is your cousin, let's go bowling!",
+          completedAt: false,
+          hasBibleVerse: false,
+          postedBy: '65bfc61f241c483f5e82e689',
+          createdAt: '2024-03-09T23:52:40.256Z',
+          updatedAt: '2024-03-09T23:52:40.256Z',
+        },
+        {
+          _id: 'RL2hpEpzrrFArpZD8HxdLBsPT',
+          title: "Let's go bowling!",
+          description: "Cousin, it is your cousin, let's go bowling!",
+          completedAt: false,
+          hasBibleVerse: false,
+          postedBy: '65bfc61f241c483f5e82e689',
+          createdAt: '2024-03-09T23:52:51.518Z',
+          updatedAt: '2024-03-09T23:52:51.518Z',
+        },
+        {
+          _id: '9Hh6X9nGMHv9wGOQ0488AdwJV',
+          title: "Let's go bowling!",
+          description: "Cousin, it is your cousin, let's go bowling!",
+          completedAt: false,
+          hasBibleVerse: false,
+          postedBy: '65bfc61f241c483f5e82e689',
+          createdAt: '2024-03-10T00:01:08.566Z',
+          updatedAt: '2024-03-10T00:01:08.566Z',
+        },
+      ],
+    ])
+
+    const user = {
+      _id: '65bfc61f241c483f5e82e689',
+      username: 'emmanz95',
+      email: 'eokuchukwu95@gmail.com',
+      avatarUrl:
+        'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1688214363/avatars/qsjrd3lvcduavnv1utyu.svg',
+      coverPhotoUrl:
+        'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1670593777/dvgncaorojmfob07w8ca.jpg',
+      friends: [],
+      prayerRequest: [],
+      __v: 0,
+    }
+
+    const myPrayerRequests = await GetMyPRs(Model)({
+      postedBy: user,
+    })
+
+    expect(myPrayerRequests).toEqual([
+      [
+        {
+          _id: 'cdqlWkpCDR68ooGwniCTdUgPy',
+          completedAt: false,
+          createdAt: '2024-03-09T23:52:40.256Z',
+          description: "Cousin, it is your cousin, let's go bowling!",
+          hasBibleVerse: false,
+          postedBy: '65bfc61f241c483f5e82e689',
+          title: "Let's go bowling!",
+          updatedAt: '2024-03-09T23:52:40.256Z',
+        },
+        {
+          _id: 'RL2hpEpzrrFArpZD8HxdLBsPT',
+          completedAt: false,
+          createdAt: '2024-03-09T23:52:51.518Z',
+          description: "Cousin, it is your cousin, let's go bowling!",
+          hasBibleVerse: false,
+          postedBy: '65bfc61f241c483f5e82e689',
+          title: "Let's go bowling!",
+          updatedAt: '2024-03-09T23:52:51.518Z',
+        },
+        {
+          _id: '9Hh6X9nGMHv9wGOQ0488AdwJV',
+          completedAt: false,
+          createdAt: '2024-03-10T00:01:08.566Z',
+          description: "Cousin, it is your cousin, let's go bowling!",
+          hasBibleVerse: false,
+          postedBy: '65bfc61f241c483f5e82e689',
+          title: "Let's go bowling!",
+          updatedAt: '2024-03-10T00:01:08.566Z',
+        },
+      ],
+    ])
+    expect(Model.find).toHaveBeenCalledTimes(1)
+    expect(Model.find).toHaveBeenCalledWith({
+      postedBy: {
+        postedBy: {
+          __v: 0,
+          _id: '65bfc61f241c483f5e82e689',
+          avatarUrl:
+            'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1688214363/avatars/qsjrd3lvcduavnv1utyu.svg',
+          coverPhotoUrl:
+            'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1670593777/dvgncaorojmfob07w8ca.jpg',
+          email: 'eokuchukwu95@gmail.com',
+          friends: [],
+          prayerRequest: [],
+          username: 'emmanz95',
+        },
+      },
+    })
   })
 })

@@ -22,10 +22,11 @@ beforeEach(async () => {
 jest.mock('./service')
 
 describe('intergration test for save router', () => {
-  const formData = {
+  const payload = {
     _id: {
       inverse: false,
     },
+    postedBy: 'd443343432dr34f',
     title: 'Ham Sandwich',
     description:
       "I want a nice grilled ham sandwich this weekend in Jesus' name",
@@ -34,12 +35,19 @@ describe('intergration test for save router', () => {
     updatedAt: expect.any(String),
   }
 
+  // TODO: create a test login helper to be able to get access to the access_token and store it in the headers
   it('should create an new journal entry - success', async () => {
-    createJournal.mockResolvedValue(formData)
+    createJournal.mockResolvedValue(payload)
     const response = await supertest(app)
       .post('/api/journal')
       .expect('Content-Type', /application\/json/)
-      .send(formData)
+      .send({
+        // postedBy: 'd443343432dr34f',
+        title: 'Ham Sandwich',
+        description:
+          "I want a nice grilled ham sandwich this weekend in Jesus' name",
+        completedAt: false,
+      })
       .expect(201)
     // expect(response.body).toEqual(formData)
     expect(response.statusCode).toEqual(201)
@@ -50,7 +58,7 @@ describe('intergration test for save router', () => {
     //   description:
     //     "I want a nice grilled ham sandwich this weekend in Jesus' name",
     // })
-    console.log('...formData:', formData)
+    console.log('...formData:', payload)
   })
 
   it('should throw error if req.body missing - 400', async () => {

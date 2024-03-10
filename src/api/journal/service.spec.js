@@ -42,6 +42,7 @@ describe('createJournal', () => {
       completedAt: false,
       createdAt: '2023-04-17T21:23:15.901Z',
       updatedAt: '2023-04-18T19:37:19.642Z',
+      postedBy: 'd443343432dr34f',
       output: {
         data: {
           reference: 'John 1:3',
@@ -71,6 +72,7 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: true,
+      _id: 'd443343432dr34f',
     }
 
     const createJournal = await service.createJournal(formData)
@@ -98,6 +100,7 @@ describe('createJournal', () => {
           ],
         },
       },
+      postedBy: 'd443343432dr34f',
       title: 'Ham Sandwich',
       updatedAt: '2023-04-18T19:37:19.642Z',
     })
@@ -127,6 +130,7 @@ describe('createJournal', () => {
           ],
         },
       },
+      _id: 'd443343432dr34f',
       title: 'Ham Sandwich',
       bibleTranslation: 'kjv',
       bibleVerse: 3,
@@ -139,6 +143,7 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       completedAt: false,
+      postedBy: 'd443343432dr34f',
       createdAt: '2023-04-17T21:23:15.901Z',
       updatedAt: '2023-04-18T19:37:19.642Z',
     })
@@ -151,6 +156,7 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: false,
+      _id: 'd443343432dr34f'
     }
 
     const createJournal = await service.createJournal(formData)
@@ -160,12 +166,14 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       title: 'Ham Sandwich',
+      postedBy: 'd443343432dr34f',
       createdAt: '2023-04-17T21:23:15.901Z',
       updatedAt: '2023-04-18T19:37:19.642Z',
     })
     expect(bibleConnector).toHaveBeenCalled()
     expect(AddJournal).toHaveBeenCalledTimes(1)
     expect(AddJournal).toHaveBeenCalledWith({
+      _id: 'd443343432dr34f',
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: false,
@@ -188,6 +196,7 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: false,
+      _id: 'd443343432dr34f'
     }
     try {
       await service.createJournal(formData)
