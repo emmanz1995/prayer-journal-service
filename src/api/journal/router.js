@@ -35,7 +35,7 @@ router.post(
         ),
       )
 
-    const newJournal = await createJournal({ ...req.body, userInfo: req.user })
+    const newJournal = await createJournal(req.body, req.user)
 
     res.status(201).json(newJournal)
   },

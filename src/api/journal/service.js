@@ -9,34 +9,35 @@ const {
 const _ = require('lodash')
 const bibleConnector = require('../../connector')
 
-const createJournal = async formData => {
+const createJournal = async (formData, session) => {
   try {
     const {
       bibleBook,
       bibleChapter,
       bibleVerse,
       bibleTranslation,
-      hasBibleVerse,
-      userInfo,
+      hasBibleVerse
     } = formData
 
-    const userId = userInfo?._id
+    const userId = session?._id
 
-    const biblePayload = await bibleConnector({
+    const payload = {
       book: bibleBook,
       chapter: bibleChapter,
       verse: bibleVerse,
       translation: bibleTranslation,
-    })
+    }
+
+    const biblePayload = await bibleConnector(payload);
 
     const createNewJournal = await AddJournal({
       output: biblePayload,
       hasBibleVerse,
-      userId,
       ...formData,
     })
 
-    console.log('...createNewJournal:', createNewJournal)
+    createNewJournal.postedBy = userId;
+    createNewJournal.save();
 
     return createNewJournal
   } catch (err) {
