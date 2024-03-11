@@ -33,11 +33,9 @@ const createJournal = async (formData, session) => {
     const createNewJournal = await AddJournal({
       output: biblePayload,
       hasBibleVerse,
+      userId,
       ...formData,
     })
-
-    createNewJournal.postedBy = userId
-    createNewJournal.save()
 
     return createNewJournal
   } catch (err) {

@@ -71,11 +71,10 @@ describe('createJournal', () => {
       title: 'Ham Sandwich',
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
-      hasBibleVerse: true,
-      _id: 'd443343432dr34f',
+      hasBibleVerse: true
     }
 
-    const createJournal = await service.createJournal(formData)
+    const createJournal = await service.createJournal(formData, { _id: 'd443343432dr34f' })
 
     expect(createJournal).toEqual({
       completedAt: false,
@@ -130,8 +129,8 @@ describe('createJournal', () => {
           ],
         },
       },
-      _id: 'd443343432dr34f',
       title: 'Ham Sandwich',
+      "userId": "d443343432dr34f",
       bibleTranslation: 'kjv',
       bibleVerse: 3,
     })
@@ -156,10 +155,12 @@ describe('createJournal', () => {
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: false,
-      _id: 'd443343432dr34f',
+      userId: 'd443343432dr34f',
     }
 
     const createJournal = await service.createJournal(formData)
+
+    console.log('...createJournal:', createJournal)
 
     expect(createJournal).toEqual({
       completedAt: false,
@@ -173,7 +174,7 @@ describe('createJournal', () => {
     expect(bibleConnector).toHaveBeenCalled()
     expect(AddJournal).toHaveBeenCalledTimes(1)
     expect(AddJournal).toHaveBeenCalledWith({
-      _id: 'd443343432dr34f',
+      "userId": "d443343432dr34f",
       description:
         "I want a nice grilled ham sandwich this weekend in Jesus' name",
       hasBibleVerse: false,

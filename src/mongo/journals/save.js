@@ -1,6 +1,5 @@
 const _ = require('lodash')
 const { generateId } = require('../../helpers/generateId')
-const { bibleConnector } = require('../../connector')
 
 /**
  * Query for saving a journal to a collection
@@ -8,10 +7,14 @@ const { bibleConnector } = require('../../connector')
  * @returns saved data
  */
 const saveJournal = Model => async doc => {
-  return new Model({
+  const newJournalEntry = new Model({
     _id: generateId(25),
     ...doc,
   })
+
+  newJournalEntry.postedBy = doc?.userId
+
+  return await newJournalEntry.save()
 }
 
 /**
