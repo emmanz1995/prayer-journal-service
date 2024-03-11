@@ -8,6 +8,8 @@ const signIn = async body => {
   const { email, password } = body
   let user = await FindUser(email)
 
+  console.log('...user', user)
+
   if (!user) {
     throw new BadRequest('This email is not found!')
   }
@@ -18,6 +20,8 @@ const signIn = async body => {
     throw new BadRequest('Your Password does not match')
   }
 
+  console.log('...comparePassword:', comparePassword)
+
   const userInfo = {
     id: user.id,
     email: user.email,
@@ -27,6 +31,8 @@ const signIn = async body => {
   const token = await jwt.sign(userInfo, process.env.SECRET_KEY, {
     expiresIn: 3600,
   })
+
+  console.log('...token:', token)
 
   return {
     userInfo,

@@ -16,7 +16,7 @@ const createJournal = async (formData, session) => {
       bibleChapter,
       bibleVerse,
       bibleTranslation,
-      hasBibleVerse
+      hasBibleVerse,
     } = formData
 
     const userId = session?._id
@@ -28,7 +28,7 @@ const createJournal = async (formData, session) => {
       translation: bibleTranslation,
     }
 
-    const biblePayload = await bibleConnector(payload);
+    const biblePayload = await bibleConnector(payload)
 
     const createNewJournal = await AddJournal({
       output: biblePayload,
@@ -36,8 +36,8 @@ const createJournal = async (formData, session) => {
       ...formData,
     })
 
-    createNewJournal.postedBy = userId;
-    createNewJournal.save();
+    createNewJournal.postedBy = userId
+    createNewJournal.save()
 
     return createNewJournal
   } catch (err) {
