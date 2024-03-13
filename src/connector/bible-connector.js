@@ -17,22 +17,21 @@ const axios = require('axios')
 const bibleConnector = async opts => {
   const { book, chapter, verse, translation } = opts
 
-  const url = `https://bible-api.com/${book} ${chapter}:${verse}`
-  let data
+  const path = `/${book} ${chapter}:${verse}`
+  let url = new URL(`https://bible-api.com${path}`)
 
-  const options = {
-    url,
+  let searchParams = url.searchParams
+
+  if (translation !== null) {
+    searchParams.set('translation', translation)
+  }
+
+  url.search = searchParams.toString()
+
+  const { data } = await axios({
+    url: url.href,
     method: 'GET',
-    params: {
-      translation,
-    },
-  }
-
-  try {
-    ;({ data } = await axios(options))
-  } catch (err) {
-    console.log(err)
-  }
+  })
   return data
 }
 

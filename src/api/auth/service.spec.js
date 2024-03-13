@@ -62,10 +62,7 @@ describe('testing auth service', () => {
     bcrypt.compareSync.mockImplementation(() => {
       throw new BadRequest('oops')
     })
-    jwt.sign.mockImplementation(
-      () =>
-        '',
-    )
+    jwt.sign.mockImplementation(() => '')
     FindUser.mockImplementation(() => {
       throw new BadRequest('oops')
     })
@@ -77,7 +74,7 @@ describe('testing auth service', () => {
 
     try {
       await signIn(body)
-    } catch(err) {
+    } catch (err) {
       expect(err.message).toEqual('oops')
     }
   })
