@@ -35,12 +35,12 @@ const userSchema = new Schema({
       'https://res.cloudinary.com/emmanuel-cloud-storage/image/upload/v1670593777/dvgncaorojmfob07w8ca.jpg',
     required: false,
   },
-  // friends: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'user',
-  //   },
-  // ],
+  roles: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'roles',
+    },
+  ],
 })
 
 const User = mongoose.model('user', userSchema)
