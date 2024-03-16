@@ -1,6 +1,10 @@
 const app = require('./app')
 const http = require('http')
-const { createRoles, createAdminUser, createModUser } = require('./mongo/setUpRoles')
+const {
+  createRoles,
+  createAdminUser,
+  createModUser,
+} = require('./mongo/setUpRoles')
 
 const PORT = 3001
 

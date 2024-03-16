@@ -3,6 +3,7 @@ const { check, validationResult } = require('express-validator')
 const _ = require('lodash')
 const { signUp } = require('./service')
 const BadRequest = require('../../errors/badRequest')
+const { verifyRolesExisted } = require('../../middleware/verifyRoles')
 
 const router = express.Router()
 
@@ -14,6 +15,7 @@ router.post(
     check('password', 'Password is required').not().notEmpty(),
     // check('confirmPassword', 'Password is required').not().notEmpty(),
   ],
+  verifyRolesExisted,
   async (req, res, next) => {
     const result = validationResult(req)
     const errorMessage = _.map(result.array(), x => x.msg).join(', ')

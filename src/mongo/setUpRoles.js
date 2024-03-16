@@ -1,14 +1,18 @@
 const bcrypt = require('bcryptjs')
-const { getUserRoles, createUserRoles, countUserRoles } = require('./roles.model');
+const {
+  getUserRoles,
+  createUserRoles,
+  countUserRoles,
+} = require('./roles.model')
 const { FindUser, AddNewUser } = require('./user.model')
 
-const { ADMIN_PASSWORD, MODERATOR_PASSWORD } = process.env;
+const { ADMIN_PASSWORD, MODERATOR_PASSWORD } = process.env
 
 const createRoles = async () => {
   try {
     const count = await countUserRoles()
 
-    if(count > 0) return
+    if (count > 0) return
 
     const roles = await Promise.all([
       await createUserRoles('user'),
@@ -17,7 +21,7 @@ const createRoles = async () => {
     ])
 
     console.log('...roles:', roles)
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 }
@@ -27,12 +31,12 @@ const createAdminUser = async () => {
   const user = await FindUser('test@gmail.com')
 
   try {
-    if(!user) {
+    if (!user) {
       const newuser = await AddNewUser({
         username: 'test',
         email: 'test@gmail.com',
         password: bcrypt.hashSync(ADMIN_PASSWORD, bcrypt.genSaltSync(12)),
-        roles: roles.map(role => role._id)
+        roles: roles.map(role => role._id),
       })
 
       console.log('Admin Created...', newuser)
@@ -46,17 +50,17 @@ const createModUser = async () => {
   const user = await FindUser('moderator@gmail.com')
 
   try {
-    if(!user) {
+    if (!user) {
       await AddNewUser({
         username: 'Mod',
         email: 'moderator@gmail.com',
-        password: bcrypt.hashSync(ADMIN_PASSWORD, bcrypt.genSaltSync(12)),
-        roles: roles.map(role => role._id)
+        password: bcrypt.hashSync(MODERATOR_PASSWORD, bcrypt.genSaltSync(12)),
+        roles: roles.map(role => role._id),
       })
 
       console.log('Mod created...')
     }
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 }
