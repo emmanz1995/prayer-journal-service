@@ -35,6 +35,9 @@ describe('axios call for bible api', () => {
 
     expect(res).toEqual(bibleRef)
     expect(axios).toHaveBeenCalledTimes(1)
-    expect(axios).toHaveBeenCalledWith({"method": "GET", "url": "https://bible-api.com/John%201:3?translation=kjv"})
+    expect(axios).toHaveBeenCalledWith({
+      method: 'GET',
+      url: 'https://bible-api.com/John%201:3?translation=kjv',
+    })
   })
 })
