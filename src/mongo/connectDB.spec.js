@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const connectDB = require('./connectDB');
+const mongoose = require('mongoose')
+const connectDB = require('./connectDB')
 
 jest.mock('mongoose', () => ({
-  connect: jest.fn()
-}));
+  connect: jest.fn(),
+}))
 
 describe('test', () => {
   it('should connect to mongo db', async () => {

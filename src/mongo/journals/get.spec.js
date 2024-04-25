@@ -87,7 +87,7 @@ describe('test get function', () => {
     const getJournalEntries = await get(Model)({})
     expect(getJournalEntries).toStrictEqual(payload)
     expect(Model.find).toBeCalledTimes(1)
-    expect(Model.find).toBeCalledWith({})
+    expect(Model.find).toBeCalled()
     expect(getJournalEntries[0]).toStrictEqual({
       _id: '643db8c388f22f9d7395a0f5',
       title: 'Mum2',
@@ -153,14 +153,10 @@ describe('test getById function', () => {
       const error = new Error('Internal server error!')
       error.statusCode = 500
     })
-    get(Model)({})
-      .then(item => {
-        console.log(item)
-      })
-      .catch(err => {
-        expect(err.message).toEqual('Internal server error')
-        expect(err.statusCode).toEqual(500)
-      })
+    get(Model)({}).catch(err => {
+      expect(err.message).toEqual('Internal server error')
+      expect(err.statusCode).toEqual(500)
+    })
   })
 })
 

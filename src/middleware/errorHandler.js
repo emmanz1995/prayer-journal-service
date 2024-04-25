@@ -6,7 +6,7 @@ const ErrorHandler = (err, req, res, next) => {
 
   return res.status(code.status || 500).json({
     errorCode: code.code,
-    errorMessage: err.message || 'Server Error',
+    errorMessage: err.message || 'Internal Server Error',
   })
 }
 
@@ -29,7 +29,7 @@ const errCode = error => {
     errorCode.code = 'JC03'
     errorCode.status = 401
   } else {
-    errorCode.code = 'Internal Server Error'
+    errorCode.code = 'JC04' // Internal Server Error
     errorCode.status = 500
   }
   return errorCode
