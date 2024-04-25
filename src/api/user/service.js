@@ -28,7 +28,7 @@ const signUp = async body => {
 
   let rolesFound = await getAllRoles(roles)
 
-  if(user) {
+  if (user) {
     throw new BadRequest('user already exists')
   }
 

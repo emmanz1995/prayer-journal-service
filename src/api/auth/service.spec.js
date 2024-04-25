@@ -12,7 +12,7 @@ describe('testing auth service', () => {
   it('should get token and userInfo', async () => {
     process.env.SECRET_KEY = '123456'
     bcrypt.compareSync.mockImplementation(() => true)
-    jwt.sign.mockImplementation(
+    jwt.sign?.mockImplementation(
       () =>
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWUxZmFiOTNkMTU1M2M4OWZiNDdhMiIsImVtYWlsIjoiZW9rdWNodWt3dTk1QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZW1tYW56OTUiLCJpYXQiOjE3MTAxODk5NTAsImV4cCI6MTcxMDE5MzU1MH0.XgBff_DNuX2dRQYQz7K5NpHGjxMcSRh5oDAqXPmGHmE',
     )
@@ -62,7 +62,7 @@ describe('testing auth service', () => {
     bcrypt.compareSync.mockImplementation(() => {
       throw new BadRequest('oops')
     })
-    jwt.sign.mockImplementation(() => '')
+    jwt.sign?.mockImplementation(() => '')
     FindUser.mockImplementation(() => {
       throw new BadRequest('oops')
     })
