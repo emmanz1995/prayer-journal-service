@@ -28,7 +28,7 @@ const journalSchema = new mongoose.Schema(
     bibleTranslation: { type: String, required: false },
     output: Object,
   },
-  { timestamps: true },
+  { timestamps: true }
 )
 
 journalSchema.set('toJSON', {

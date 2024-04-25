@@ -31,14 +31,14 @@ router.post(
           `${result
             .array()
             .map(x => x.msg)
-            .join(', ')}`,
-        ),
+            .join(', ')}`
+        )
       )
 
     const newJournal = await createJournal(req.body, req.user)
 
     res.status(201).json(newJournal)
-  },
+  }
 )
 
 router.get('/all', authJwt, async (req, res, next) => {

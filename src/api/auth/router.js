@@ -21,7 +21,7 @@ authRouter.post(
         `${result
           .array()
           .map(res => res.msg)
-          .join(', ')}`,
+          .join(', ')}`
       )
     }
     const user = await signIn(req.body)
@@ -31,7 +31,7 @@ authRouter.post(
     } catch (err) {
       next(err)
     }
-  },
+  }
 )
 
 authRouter.get('/me', authJwt, async (req, res, next) => {

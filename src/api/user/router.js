@@ -29,7 +29,7 @@ router.post(
     } catch (err) {
       next(err)
     }
-  },
+  }
 )
 
 module.exports = router

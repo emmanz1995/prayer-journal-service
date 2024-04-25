@@ -14,7 +14,7 @@ describe('testing auth service', () => {
     bcrypt.compareSync.mockImplementation(() => true)
     jwt.sign?.mockImplementation(
       () =>
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWUxZmFiOTNkMTU1M2M4OWZiNDdhMiIsImVtYWlsIjoiZW9rdWNodWt3dTk1QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZW1tYW56OTUiLCJpYXQiOjE3MTAxODk5NTAsImV4cCI6MTcxMDE5MzU1MH0.XgBff_DNuX2dRQYQz7K5NpHGjxMcSRh5oDAqXPmGHmE',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWUxZmFiOTNkMTU1M2M4OWZiNDdhMiIsImVtYWlsIjoiZW9rdWNodWt3dTk1QGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiZW1tYW56OTUiLCJpYXQiOjE3MTAxODk5NTAsImV4cCI6MTcxMDE5MzU1MH0.XgBff_DNuX2dRQYQz7K5NpHGjxMcSRh5oDAqXPmGHmE'
     )
     FindUser.mockResolvedValue({
       id: '123',
@@ -46,13 +46,13 @@ describe('testing auth service', () => {
     expect(bcrypt.compareSync).toHaveBeenCalledTimes(1)
     expect(bcrypt.compareSync).toHaveBeenCalledWith(
       'Password@123?',
-      '$2a$10$6RmWPM.Gai3ZphD6okhvg.Xxbumxh1lU3stoPGcidAOLxO2aH0Ygm',
+      '$2a$10$6RmWPM.Gai3ZphD6okhvg.Xxbumxh1lU3stoPGcidAOLxO2aH0Ygm'
     )
     expect(jwt.sign).toHaveBeenCalledTimes(1)
     expect(jwt.sign).toHaveBeenCalledWith(
       { email: 'eokuchukwu95@gmail.com', id: '123', username: 'emmanz95' },
       process.env.SECRET_KEY,
-      { expiresIn: 3600 },
+      { expiresIn: 3600 }
     )
     expect(FindUser).toHaveBeenCalledTimes(1)
     expect(FindUser).toHaveBeenCalledWith('test@example.com')

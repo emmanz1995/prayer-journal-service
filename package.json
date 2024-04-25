@@ -10,7 +10,7 @@
     "test:coverage": "jest --coverage",
     "cypress": "cypress run",
     "cypress:open": "cypress open",
-    "format": "prettier --single-quote --trailing-coma es5 --write '{src,cypress}/**/*.js'"
+    "format": "prettier --single-quote --trailing-comma es5 --write '{src,cypress}/**/*.js'"
   },
   "author": "Emmanuel Okuchukwu (eokuchukwu95@gmail.com)",
   "license": "ISC",

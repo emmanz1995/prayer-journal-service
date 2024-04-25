@@ -119,7 +119,7 @@ describe('integration test for save router', () => {
       .send({})
       .expect(400)
     expect(response.body.errorMessage).toContain(
-      'Title is required, Description is required',
+      'Title is required, Description is required'
     )
     expect(response.body.errorCode).toContain('JC01')
     expect(response.status).toEqual(400)

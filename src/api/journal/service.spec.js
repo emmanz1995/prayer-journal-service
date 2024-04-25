@@ -268,7 +268,7 @@ describe('getJournal', () => {
     })
 
     const getOne = await service.getJournalById(
-      'c7231513-f021-492b-882f-6affc5001956',
+      'c7231513-f021-492b-882f-6affc5001956'
     )
 
     expect(getOne).toEqual({
@@ -283,7 +283,7 @@ describe('getJournal', () => {
     })
     expect(GetJournalById).toHaveBeenCalledTimes(1)
     expect(GetJournalById).toHaveBeenCalledWith(
-      'c7231513-f021-492b-882f-6affc5001956',
+      'c7231513-f021-492b-882f-6affc5001956'
     )
   })
 

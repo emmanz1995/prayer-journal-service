@@ -31,7 +31,7 @@ const updateJournal = Model => async formData => {
     {
       title,
     },
-    { new: true },
+    { new: true }
   )
   return journal
 }
