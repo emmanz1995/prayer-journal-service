@@ -1,6 +1,7 @@
-jest.mock('axios')
 const axios = require('axios')
 const bibleConnector = require('./bible-connector')
+
+jest.mock('axios')
 
 describe('axios call for bible api', () => {
   it('should retrieve bible data', async () => {
@@ -39,5 +40,28 @@ describe('axios call for bible api', () => {
       method: 'GET',
       url: 'https://bible-api.com/John%201:3?translation=kjv',
     })
+  })
+
+  it('should fail to retrieve the bible verse', async () => {
+    expect.assertions(3)
+    axios?.mockImplementation(() => {
+      throw new Error('oh no!')
+    })
+
+    try {
+      await bibleConnector({
+        book: 'John',
+        chapter: '1',
+        verse: '3',
+        translation: 'kjv',
+      })
+    } catch (err) {
+      expect(err.message).toEqual('oh no!')
+      expect(axios).toHaveBeenCalledTimes(1)
+      expect(axios).toHaveBeenCalledWith({
+        method: 'GET',
+        url: 'https://bible-api.com/John%201:3?translation=kjv',
+      })
+    }
   })
 })

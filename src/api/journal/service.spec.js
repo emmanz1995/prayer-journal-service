@@ -247,7 +247,7 @@ describe('getJournals', () => {
     })
     try {
       await service.getJournals()
-    } catch(err) {
+    } catch (err) {
       expect(err.message).toEqual('oh no!')
       expect(GetJournals).toHaveBeenCalled()
     }
@@ -294,7 +294,7 @@ describe('getJournal', () => {
     })
     try {
       await service.getJournalById('123')
-    } catch(err) {
+    } catch (err) {
       expect(err.message).toEqual('oh no!')
       expect(GetJournalById).toHaveBeenCalled()
       expect(GetJournalById).toHaveBeenCalledWith('123')
@@ -308,24 +308,24 @@ describe('updateJournal', () => {
       title: 'Hey you!',
       id: '1234',
       createdAt: '2024-04-25T20:48:11.000Z',
-      updatedAt: new Date()
+      updatedAt: new Date(),
     })
 
     const updateJournal = await service.updateJournal({
       title: 'Hey you!',
-      id: '1234'
+      id: '1234',
     })
 
     expect(updateJournal).toEqual({
       title: 'Hey you!',
       id: '1234',
       createdAt: '2024-04-25T20:48:11.000Z',
-      updatedAt: expect.any(Date)
+      updatedAt: expect.any(Date),
     })
-    expect(UpdateJournal).toHaveBeenCalledTimes(1);
+    expect(UpdateJournal).toHaveBeenCalledTimes(1)
     expect(UpdateJournal).toHaveBeenCalledWith({
       id: '1234',
-      title: 'Hey you!'
+      title: 'Hey you!',
     })
   })
 
@@ -335,14 +335,14 @@ describe('updateJournal', () => {
       throw new Error('oh no!')
     })
 
-    try{
+    try {
       await service.updateJournal({ title: 'Hey', id: '12343' })
-    } catch(err) {
+    } catch (err) {
       expect(err.message).toEqual('oh no!')
-      expect(UpdateJournal).toHaveBeenCalledTimes(1);
+      expect(UpdateJournal).toHaveBeenCalledTimes(1)
       expect(UpdateJournal).toHaveBeenCalledWith({
         title: 'Hey',
-        id: '12343'
+        id: '12343',
       })
     }
   })
@@ -378,9 +378,9 @@ describe('deleteJournal', () => {
 
     try {
       await service.deleteJournal('123456789')
-    } catch(err) {
+    } catch (err) {
       expect(err.message).toEqual('oh no!')
-      expect(DeleteJournal).toHaveBeenCalledTimes(1);
+      expect(DeleteJournal).toHaveBeenCalledTimes(1)
       expect(DeleteJournal).toHaveBeenCalledWith('123456789')
     }
   })
