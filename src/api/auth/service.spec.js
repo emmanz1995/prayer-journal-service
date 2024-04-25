@@ -54,10 +54,12 @@ describe('testing auth service', () => {
       process.env.SECRET_KEY,
       { expiresIn: 3600 },
     )
+    expect(FindUser).toHaveBeenCalledTimes(1)
+    expect(FindUser).toHaveBeenCalledWith('test@example.com')
   })
 
   it('should FAIL to retrieve token and userInfo', async () => {
-    expect.assertions(1)
+    expect.assertions(5)
     process.env.SECRET_KEY = ''
     bcrypt.compareSync.mockImplementation(() => {
       throw new BadRequest('oops')
@@ -76,6 +78,10 @@ describe('testing auth service', () => {
       await signIn(body)
     } catch (err) {
       expect(err.message).toEqual('oops')
+      expect(bcrypt.compareSync).not.toHaveBeenCalled()
+      expect(jwt.sign).not.toHaveBeenCalled()
+      expect(FindUser).toHaveBeenCalledTimes(1)
+      expect(FindUser).toHaveBeenCalledWith('test@example.com')
     }
   })
 })
