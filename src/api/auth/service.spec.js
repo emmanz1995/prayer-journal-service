@@ -9,6 +9,9 @@ jest.mock('jsonwebtoken')
 jest.mock('../../mongo/user.model')
 
 describe('testing auth service', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should get token and userInfo', async () => {
     process.env.SECRET_KEY = '123456'
     bcrypt.compareSync.mockImplementation(() => true)

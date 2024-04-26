@@ -4,6 +4,9 @@ const bibleConnector = require('./bible-connector')
 jest.mock('axios')
 
 describe('axios call for bible api', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should retrieve bible data', async () => {
     const bibleRef = {
       reference: 'John 1:3',

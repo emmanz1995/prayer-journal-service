@@ -209,6 +209,9 @@ describe('createJournal', () => {
 })
 
 describe('getJournals', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should get all of the journals', async () => {
     GetJournals.mockResolvedValue([
       {
@@ -255,6 +258,9 @@ describe('getJournals', () => {
 })
 
 describe('getJournal', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should successfully get one journal', async () => {
     GetJournalById.mockResolvedValue({
       title: 'Prayer for healing',
@@ -303,6 +309,9 @@ describe('getJournal', () => {
 })
 
 describe('updateJournal', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should successfully update one journal', async () => {
     UpdateJournal.mockResolvedValue({
       title: 'Hey you!',
@@ -349,6 +358,9 @@ describe('updateJournal', () => {
 })
 
 describe('deleteJournal', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should successfully delete a journal', async () => {
     DeleteJournal.mockResolvedValue({
       id: '54321',
