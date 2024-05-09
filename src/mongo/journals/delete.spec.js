@@ -4,7 +4,7 @@ const Model = jest.fn()
 Model.findByIdAndDelete = jest.fn()
 
 describe('deletes journal', () => {
-  test('should delete journal entry - successfully', async () => {
+  it('should delete journal entry - successfully', async () => {
     const id = '643ee3b946deec1b1cea4019'
     Model.findByIdAndDelete.mockImplementationOnce(() => 'journal deleted')
 
@@ -13,7 +13,7 @@ describe('deletes journal', () => {
     expect(deleteJournal).toBeDefined()
   })
 
-  test('should throw 500 error when trying to delete journal - failure', async () => {
+  it('should throw 500 error when trying to delete journal - failure', async () => {
     Model.findByIdAndDelete.mockImplementationOnce(() => {
       const error = new Error('Internal server error!')
       error.statusCode = 500
