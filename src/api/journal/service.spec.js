@@ -161,8 +161,6 @@ describe('createJournal', () => {
 
     const createJournal = await service.createJournal(formData)
 
-    console.log('...createJournal:', createJournal)
-
     expect(createJournal).toEqual({
       completedAt: false,
       description:

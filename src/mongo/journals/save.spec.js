@@ -74,7 +74,6 @@ describe('Testing update', () => {
     const formData = { _id: '123', title: 'Your Mum' }
     Model.findByIdAndUpdate.mockImplementationOnce(() => formData)
     const updateEntry = await updateJournal(Model)(formData)
-    console.log('UpdateEntry:', updateEntry)
     expect(updateEntry).toEqual({ _id: '123', title: 'Your Mum' })
     expect(Model.findByIdAndUpdate).toBeCalledTimes(1)
   })

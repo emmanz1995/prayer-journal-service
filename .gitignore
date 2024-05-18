@@ -1,3 +1,8 @@
 /node_modules
 .env
 /coverage
+/cypress/screenshots
+/cypress/videos
+/docker-compose.yml
+/data
+/database

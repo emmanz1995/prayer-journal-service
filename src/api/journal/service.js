@@ -39,7 +39,6 @@ const createJournal = async (formData, session) => {
 
     return createNewJournal
   } catch (err) {
-    console.log(err)
     throw err
   }
 }
