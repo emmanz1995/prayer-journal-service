@@ -10,6 +10,7 @@
     "test:coverage": "cross-env NODE_ENV=test jest --coverage",
     "cypress": "cross-env NODE_ENV=test cypress run",
     "cypress:open": "cross-env NODE_ENV=test cypress open",
+    "dist": "rm -rf dist && tsc",
     "format": "prettier --single-quote --trailing-comma es5 --write '{src,cypress}/**/*.js'"
   },
   "author": "Emmanuel Okuchukwu (eokuchukwu95@gmail.com)",
@@ -31,6 +32,10 @@
   "devDependencies": {
     "@babel/core": "^7.22.17",
     "@babel/preset-env": "^7.22.15",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/lodash": "^4.17.7",
     "babel-jest": "^29.7.0",
     "cross-env": "^7.0.3",
     "cypress": "^12.13.0",

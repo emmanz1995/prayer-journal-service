@@ -1,10 +1,10 @@
-const app = require('./app')
-const http = require('http')
-const {
+import  app from './app';
+import http from 'http';
+import {
   createRoles,
   createAdminUser,
   createModUser,
-} = require('./mongo/setUpRoles')
+} from './mongo/setUpRoles';
 
 const PORT = 3001
 

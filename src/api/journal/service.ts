@@ -1,15 +1,15 @@
-const {
+import {
   AddJournal,
   UpdateJournal,
   GetJournals,
   GetJournalById,
   DeleteJournal,
   getPrayerRequestForLoggedInUser,
-} = require('../../mongo/journal.model')
-const _ = require('lodash')
-const bibleConnector = require('../../connector')
+} from '../../mongo/journal.model';
+import _ from 'lodash';
+import bibleConnector from '../../connector';
 
-const createJournal = async (formData, session) => {
+const createJournal = async (formData: any, session: any) => {
   try {
     const {
       bibleBook,
@@ -63,7 +63,7 @@ const getJournals = async () => {
   }
 }
 
-const getJournalById = async id => {
+const getJournalById = async (id: any) => {
   try {
     return await GetJournalById(id)
   } catch (err) {
@@ -71,7 +71,7 @@ const getJournalById = async id => {
   }
 }
 
-const getMyJournalEntities = async userInfo => {
+const getMyJournalEntities = async (userInfo: any) => {
   try {
     return await getPrayerRequestForLoggedInUser(userInfo)
   } catch (err) {
@@ -79,7 +79,7 @@ const getMyJournalEntities = async userInfo => {
   }
 }
 
-const updateJournal = async formData => {
+const updateJournal = async (formData: any) => {
   const { id, title } = formData
   try {
     return await UpdateJournal({
@@ -91,7 +91,7 @@ const updateJournal = async formData => {
   }
 }
 
-const deleteJournal = async id => {
+const deleteJournal = async (id: any) => {
   try {
     return await DeleteJournal(id)
   } catch (err) {
@@ -99,7 +99,7 @@ const deleteJournal = async id => {
   }
 }
 
-module.exports = {
+export {
   createJournal,
   updateJournal,
   getJournals,

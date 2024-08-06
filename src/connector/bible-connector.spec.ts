@@ -1,3 +1,5 @@
+import { jest } from "@jest/globals"
+
 const axios = require('axios')
 const bibleConnector = require('./bible-connector')
 

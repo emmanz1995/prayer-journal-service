@@ -1,17 +1,17 @@
-const express = require('express')
-const { check, validationResult } = require('express-validator')
-const _ = require('lodash')
-const BadRequest = require('../../errors/badRequest')
+import express, { Response, Request, NextFunction } from 'express';
+import { check, validationResult } from 'express-validator';
+import _ from 'lodash';
+import BadRequest from '../../errors/badRequest';
 // import NotFound from '../errors/notFound'
-const {
+import {
   createJournal,
   getJournalById,
   getJournals,
   getMyJournalEntities,
   updateJournal,
   deleteJournal,
-} = require('./service')
-const authJwt = require('../../middleware/authJwt')
+} from './service';
+import authJwt from '../../middleware/authJwt';
 
 const router = express.Router()
 
@@ -22,7 +22,7 @@ router.post(
     check('description', 'Description is required').not().notEmpty(),
   ],
   authJwt,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const result = validationResult(req)
 
     if (!result.isEmpty())
@@ -44,23 +44,23 @@ router.post(
   }
 )
 
-router.get('/all', authJwt, async (req, res, next) => {
+router.get('/all', authJwt, async (req: Request, res: Response, next: NextFunction) => {
   const journals = await getJournals()
   res.status(200).json(journals)
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params
   const journal = await getJournalById(id)
   res.status(200).json(journal)
 })
 
-router.get('/', authJwt, async (req, res, next) => {
+router.get('/', authJwt, async (req: Request, res: Response, next: NextFunction) => {
   const myPrayerRequests = await getMyJournalEntities(req.user)
   res.status(200).json(myPrayerRequests)
 })
 
-// router.get('/myprayers', authJwt, async (req, res, next) => {
+// router.get('/myprayers', authJwt, async (req: Request, res: Response, next: NextFunction) => {
 //   console.log('...userId:', _id)
 //   console.log('...userInfo:', req.user)
 //   console.log('1')
@@ -74,7 +74,7 @@ router.get('/', authJwt, async (req, res, next) => {
 //   }
 // })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   // const title = req.body.title
   const {
     params: { id },
@@ -88,10 +88,10 @@ router.put('/:id', async (req, res, next) => {
   res.status(200).json(updated)
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params
   const journal = await deleteJournal(id)
   res.status(200).json(journal)
 })
 
-module.exports = router
+export default router

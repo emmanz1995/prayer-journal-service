@@ -1,12 +1,12 @@
-const express = require('express')
-require('express-async-errors')
-const cors = require('cors')
-const dotenv = require('dotenv')
-const ErrorHandler = require('./middleware/errorHandler')
-const accountRouter = require('./api/journal/router')
-const connectDB = require('./mongo/connectDB')
-const userRouter = require('./api/user')
-const authRouter = require('./api/auth')
+import express from 'express';
+import 'express-async-errors';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import ErrorHandler from './middleware/errorHandler';
+import accountRouter from './api/journal/router';
+import connectDB from './mongo/connectDB';
+import userRouter from './api/user';
+import authRouter from './api/auth';
 dotenv.config()
 
 const app = express()
@@ -29,4 +29,4 @@ app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)
 app.use(ErrorHandler)
 
-module.exports = app
+export default app;

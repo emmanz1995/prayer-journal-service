@@ -1,5 +1,12 @@
-const ErrorHandler = (err, req, res, next) => {
-  const error = { ...err }
+import { Request, Response, NextFunction } from 'express'
+
+interface IErrorCode {
+  code: string;
+  status: number;
+}
+
+const ErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+  const error: any = { ...err }
   error.message = err.message
 
   const code = errCode(err)
@@ -16,14 +23,17 @@ const ErrorHandler = (err, req, res, next) => {
  * @param {Object} error
  * @returns error codes and error statues
  * */
-const errCode = error => {
-  let errorCode = {}
+const errCode = (error: Error) => {
+  let errorCode: IErrorCode = {
+    code: 'JC04',
+    status: 500,
+  }
   if (error.constructor.name === 'BadRequest') {
     errorCode.code = 'JC01'
     errorCode.status = 400
   } else if (error.constructor.name === 'NotFound') {
-    errorCode = 'JC02'
-    errorCode = 404
+    errorCode.code = 'JC02'
+    errorCode.status = 404
   } else if (error.constructor.name === 'AuthorizationError') {
     errorCode.code = 'JC03'
     errorCode.status = 401
@@ -34,4 +44,4 @@ const errCode = error => {
   return errorCode
 }
 
-module.exports = ErrorHandler
+export default ErrorHandler;

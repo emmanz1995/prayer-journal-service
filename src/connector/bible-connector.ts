@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from 'axios';
 
 /**
  * @typedef {object} Opts
@@ -14,7 +14,7 @@ const axios = require('axios')
  * return bible references
  */
 
-const bibleConnector = async opts => {
+const bibleConnector = async (opts: any) => {
   const { book, chapter, verse, translation } = opts
 
   const path = `/${book} ${chapter}:${verse}`
@@ -35,4 +35,4 @@ const bibleConnector = async opts => {
   return data
 }
 
-module.exports = bibleConnector
+export default bibleConnector
