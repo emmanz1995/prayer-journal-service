@@ -27,8 +27,10 @@ const createJournal = async (formData, session) => {
       verse: bibleVerse,
       translation: bibleTranslation,
     }
+    let biblePayload = null
 
-    const biblePayload = await bibleConnector(payload)
+    if (payload)
+      biblePayload = await bibleConnector(payload)
 
     const createNewJournal = await AddJournal({
       output: biblePayload,

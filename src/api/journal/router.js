@@ -34,10 +34,13 @@ router.post(
             .join(', ')}`
         )
       )
-
-    const newJournal = await createJournal(req.body, req.user)
-
-    res.status(201).json(newJournal)
+    try {
+      const newJournal = await createJournal(req.body, req.user)
+      res.status(201).json(newJournal)
+    } catch(err) {
+      console.log('err', err)
+      next(err)
+    }
   }
 )
 
