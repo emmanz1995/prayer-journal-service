@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  eployment_pipeline:
+  deployment_pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,3 +19,5 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: npm install
+      - name: Run Unit Tests
+        run: npm run test
