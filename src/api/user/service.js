@@ -6,6 +6,7 @@ const {
   // FindUserById,
   FindUser,
   // UpdateUser,
+  updateUserPhoto
 } = require('../../mongo/user.model')
 const { getAllRoles } = require('../../mongo/roles.model')
 const BadRequest = require('../../errors/badRequest')
@@ -56,4 +57,6 @@ const signUp = async body => {
   }
 }
 
-module.exports = { signUp }
+const updateProfilePic = async() => {}
+
+module.exports = { signUp, updateProfilePic }
